@@ -1,0 +1,215 @@
+# Success Criteria Configuration
+# ==============================
+# Define los criterios de éxito para el sistema de validación QA.
+#
+# Versión: 3.8.0
+# Última actualización: 2025-01-19
+
+# ============================================
+# Criterios de Validación
+# ============================================
+
+# Validación de sintaxis
+syntax:
+  enabled: true
+  required: true
+  description: "Verifica que el código tenga sintaxis válida"
+
+# Validación de lint/estilo
+lint:
+  enabled: true
+  required: false
+  max_errors: 10
+  max_warnings: 50
+  tools:
+    python: ["pylint", "flake8"]
+    javascript: ["eslint"]
+    typescript: ["eslint", "tsc"]
+  description: "Verifica estilo y buenas prácticas de código"
+
+# Validación de tests
+tests:
+  enabled: true
+  required: true
+  min_coverage: 0
+  timeout_seconds: 300
+  frameworks:
+    python: "pytest"
+    javascript: "jest"
+    typescript: "jest"
+  description: "Ejecuta tests unitarios y de integración"
+
+# Validación de seguridad
+security:
+  enabled: true
+  required: false
+  tools:
+    python: ["bandit", "safety"]
+    javascript: ["npm audit"]
+  owasp_checks: true
+  description: "Verifica vulnerabilidades de seguridad"
+
+# Validación de documentación
+documentation:
+  enabled: false
+  required: false
+  check_docstrings: true
+  check_readme: true
+  description: "Verifica documentación de código"
+
+# Validación de cobertura
+coverage:
+  enabled: false
+  required: false
+  min_percentage: 0
+  description: "Verifica cobertura de código"
+
+# ============================================
+# Criterios por Nivel BMAD
+# ============================================
+
+level_criteria:
+  nivel_0:
+    # Trivial: mínima validación
+    syntax:
+      enabled: true
+      required: true
+    lint:
+      enabled: false
+    tests:
+      enabled: false
+    security:
+      enabled: false
+    documentation:
+      enabled: false
+
+  nivel_1:
+    # Simple: validación básica
+    syntax:
+      enabled: true
+      required: true
+    lint:
+      enabled: true
+      required: false
+    tests:
+      enabled: true
+      required: false
+    security:
+      enabled: false
+    documentation:
+      enabled: false
+
+  nivel_2:
+    # Estándar: validación completa
+    syntax:
+      enabled: true
+      required: true
+    lint:
+      enabled: true
+      required: true
+    tests:
+      enabled: true
+      required: true
+    security:
+      enabled: true
+      required: false
+    documentation:
+      enabled: false
+
+  nivel_3:
+    # Complejo: validación rigurosa
+    syntax:
+      enabled: true
+      required: true
+    lint:
+      enabled: true
+      required: true
+    tests:
+      enabled: true
+      required: true
+      min_coverage: 60
+    security:
+      enabled: true
+      required: true
+    documentation:
+      enabled: true
+      required: false
+
+  nivel_4:
+    # Enterprise: validación exhaustiva
+    syntax:
+      enabled: true
+      required: true
+    lint:
+      enabled: true
+      required: true
+    tests:
+      enabled: true
+      required: true
+      min_coverage: 80
+    security:
+      enabled: true
+      required: true
+    documentation:
+      enabled: true
+      required: true
+    coverage:
+      enabled: true
+      required: true
+      min_percentage: 80
+
+# ============================================
+# Configuración de Retry
+# ============================================
+
+retry:
+  max_attempts: 3
+  delay_seconds: 1
+  exponential_backoff: false
+
+  # Condiciones para retry automático
+  auto_retry_on:
+    - lint_errors
+    - test_failures_under_5
+
+  # No reintentar en estos casos
+  no_retry_on:
+    - syntax_errors
+    - security_critical
+    - coverage_under_50
+
+# ============================================
+# Hooks de Validación
+# ============================================
+
+hooks:
+  pre_validation:
+    enabled: false
+    script: null
+
+  post_validation:
+    enabled: false
+    script: null
+
+  on_failure:
+    enabled: true
+    notify: true
+    create_issue: false
+
+# ============================================
+# Umbrales de Calidad
+# ============================================
+
+quality_gates:
+  # Métricas de código
+  max_complexity: 15
+  max_function_length: 50
+  max_file_length: 500
+
+  # Métricas de dependencias
+  max_direct_dependencies: 20
+  check_outdated: true
+
+  # Métricas de deuda técnica
+  max_todo_comments: 10
+  max_fixme_comments: 5

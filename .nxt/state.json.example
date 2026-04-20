@@ -1,0 +1,77 @@
+{
+  "_instructions": "Copy this file to state.json on first setup",
+  "framework_version": "3.8.0",
+  "orchestrator_version": "3.8.0",
+  "current_phase": "iniciar",
+  "current_context": null,
+  "completed_tasks": [],
+  "pending_tasks": [],
+  "active_agents": [
+    "nxt-context",
+    "nxt-changelog",
+    "nxt-multicontext",
+    "nxt-ralph"
+  ],
+  "decisions_log": [],
+  "session_history": [],
+  "registries": {
+    "agents_loaded": true,
+    "skills_loaded": true,
+    "workflows_loaded": true
+  },
+  "integration_status": {
+    "bmad_connected": true,
+    "mcp_connected": true,
+    "event_bus_active": true,
+    "hooks_enabled": true,
+    "self_healing_active": true,
+    "learning_enabled": true,
+    "metrics_collection": true,
+    "persistence_agents_active": true,
+    "telemetry_supabase": true
+  },
+  "capabilities": {
+    "event_emission": true,
+    "self_healing": true,
+    "circuit_breaker": true,
+    "learning_from_decisions": true,
+    "predictive_classification": true,
+    "health_monitoring": true,
+    "metrics_collection": true,
+    "auto_persistence": true,
+    "team_telemetry": true,
+    "track_system": true
+  },
+  "tracks": {
+    "enabled": true,
+    "config_file": ".nxt/tracks.yaml",
+    "available": [
+      "web",
+      "mobile"
+    ],
+    "current_track": null,
+    "detection_mode": "auto"
+  },
+  "persistence_agents": {
+    "enabled": true,
+    "run_on_every_interaction": true,
+    "agents": [
+      "nxt-context",
+      "nxt-multicontext",
+      "nxt-changelog",
+      "nxt-ralph"
+    ],
+    "triggers": [
+      "on_session_start",
+      "on_task_complete",
+      "on_agent_switch",
+      "on_checkpoint",
+      "on_session_end",
+      "always",
+      "on_every_interaction"
+    ],
+    "always_trigger_includes_all": true,
+    "last_execution": null
+  },
+  "last_updated": null
+}

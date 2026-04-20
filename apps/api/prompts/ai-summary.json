@@ -1,0 +1,14 @@
+{
+  "id": "ai-summary",
+  "version": "a1b2c3d4",
+  "template": "Analiza los siguientes eventos de detección de un sistema de visión por computadora y genera un resumen ejecutivo en español. Incluye: 1) Resumen general de actividad, 2) Patrones detectados, 3) Anomalías o eventos destacados, 4) Recomendaciones.\n\nEventos:\n{events}\n\nGenera el resumen en formato profesional.",
+  "metadata": {
+    "model": "gpt-4o-mini",
+    "language": "es",
+    "max_tokens": 1000,
+    "temperature": 0.3,
+    "use_case": "event-summary"
+  },
+  "created_at": "2026-04-05T00:00:00Z",
+  "char_count": 350
+}

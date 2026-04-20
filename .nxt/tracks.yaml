@@ -1,0 +1,170 @@
+# ============================================================================
+# NXT AI Development - Sistema de Tracks v3.8.0
+# ============================================================================
+# Los tracks organizan skills por tipo de proyecto (web vs mobile).
+# Los agentes son los mismos 33 - lo que cambia son las herramientas (skills)
+# que cada agente usa según el contexto del proyecto.
+#
+# IMPORTANTE: El framework es AGNÓSTICO de tecnología.
+# Los tracks detectan TIPO DE PROYECTO, no tecnología específica.
+# ============================================================================
+
+tracks:
+  # ════════════════════════════════════════════════════════════════════════════
+  # WEB TRACK - Aplicaciones web, dashboards, portales, APIs web
+  # ════════════════════════════════════════════════════════════════════════════
+  web:
+    description: "Desarrollo de aplicaciones web y servicios backend"
+    default: true
+    detection:
+      # Detecta por TIPO de proyecto, no por tecnología
+      project_types:
+        - "aplicación web"
+        - "web app"
+        - "dashboard"
+        - "portal"
+        - "sitio web"
+        - "landing page"
+        - "SPA"
+        - "SSR"
+        - "API REST"
+        - "API GraphQL"
+        - "microservicio"
+        - "backend"
+        - "admin panel"
+        - "e-commerce web"
+        - "CMS"
+      # Indicadores en el proyecto (archivos que indican proyecto web)
+      file_indicators:
+        - "next.config.*"
+        - "nuxt.config.*"
+        - "vite.config.*"
+        - "angular.json"
+        - "webpack.config.*"
+        - "tailwind.config.*"
+        - "manage.py"          # Django
+        - "Gemfile"            # Rails
+        - "composer.json"      # PHP/Laravel
+        - "Program.cs"         # .NET
+    skill_mapping:
+      # Qué skills usa cada agente cuando está en Web Track
+      nxt-qa:
+        - SKILL-testing
+      nxt-cybersec:
+        - SKILL-security
+      nxt-performance:
+        - SKILL-monitoring
+      nxt-design:
+        - SKILL-diagrams
+      nxt-dev:
+        - SKILL-code-quality
+        - SKILL-testing
+      nxt-devops:
+        - SKILL-containers
+        - SKILL-monitoring
+
+  # ════════════════════════════════════════════════════════════════════════════
+  # MOBILE TRACK - Apps iOS, Android, cross-platform
+  # ════════════════════════════════════════════════════════════════════════════
+  mobile:
+    description: "Desarrollo de aplicaciones móviles nativas y cross-platform"
+    detection:
+      project_types:
+        - "app móvil"
+        - "aplicación móvil"
+        - "mobile app"
+        - "app iOS"
+        - "app Android"
+        - "app nativa"
+        - "cross-platform app"
+        - "tablet app"
+        - "wearable app"
+      file_indicators:
+        - "app.json"            # React Native / Expo
+        - "eas.json"            # Expo Application Services
+        - "metro.config.*"      # React Native
+        - "pubspec.yaml"        # Flutter
+        - "Podfile"             # iOS (CocoaPods)
+        - "build.gradle"        # Android
+        - "*.xcodeproj"         # Xcode
+        - "*.xcworkspace"       # Xcode workspace
+        - "AndroidManifest.xml" # Android
+        - "Info.plist"          # iOS
+        - "Fastfile"            # Fastlane
+    skill_mapping:
+      nxt-qa:
+        - SKILL-mobile-testing
+      nxt-cybersec:
+        - SKILL-mobile-security
+      nxt-performance:
+        - SKILL-mobile-performance
+      nxt-design:
+        - SKILL-mobile-ux
+      nxt-mobile:
+        - SKILL-mobile-ci
+        - SKILL-app-store
+        - SKILL-mobile-analytics
+      nxt-dev:
+        - SKILL-code-quality
+      nxt-devops:
+        - SKILL-mobile-ci
+    workflow: "workflow-mobile-dev.md"
+
+  # ════════════════════════════════════════════════════════════════════════════
+  # SHARED - Skills que aplican a AMBOS tracks
+  # ════════════════════════════════════════════════════════════════════════════
+  shared:
+    description: "Skills compartidos entre todos los tracks"
+    skills:
+      # Estos skills se cargan SIEMPRE, sin importar el track
+      - SKILL-code-quality
+      - SKILL-migrations
+      - SKILL-api-docs
+      - SKILL-containers
+      - SKILL-diagrams
+      - SKILL-markdown-advanced
+      - SKILL-changelog
+      - SKILL-context-persistence
+      - SKILL-webhooks
+      - SKILL-mcp
+      - SKILL-gemini
+      - SKILL-openai
+      # Documentos (agnósticos)
+      - SKILL-docx
+      - SKILL-pdf
+      - SKILL-pptx
+      - SKILL-xlsx
+      # Avanzados (agnósticos)
+      - SKILL-root-cause-analysis
+      - SKILL-implementation-readiness
+
+# ════════════════════════════════════════════════════════════════════════════
+# DETECCIÓN AUTOMÁTICA DE TRACK
+# ════════════════════════════════════════════════════════════════════════════
+detection:
+  mode: "auto"  # auto | manual | ask
+  # auto: El orchestrator detecta el track basado en archivos y keywords
+  # manual: El usuario especifica el track con --track web|mobile
+  # ask: El orchestrator pregunta si no puede determinar
+
+  # Si no se puede detectar, usar el track default (web)
+  fallback: "web"
+
+  # Si el proyecto tiene AMBOS (web + mobile en monorepo), activar ambos
+  allow_multi_track: true
+
+# ════════════════════════════════════════════════════════════════════════════
+# CÓMO LOS AGENTES USAN LOS TRACKS
+# ════════════════════════════════════════════════════════════════════════════
+# 1. El orchestrator analiza el proyecto y detecta el track
+# 2. Guarda el track activo en .nxt/state.json → current_track
+# 3. Cuando un agente se activa, lee el track y carga los skills correspondientes
+# 4. El agente usa los skills del track + los shared skills
+#
+# Ejemplo:
+#   Track: mobile
+#   Agente: nxt-qa
+#   Skills cargados: SKILL-mobile-testing (del track) + SKILL-code-quality (shared)
+#
+# Los agentes NO necesitan saber de tracks internamente.
+# El orchestrator se encarga de la selección de skills.

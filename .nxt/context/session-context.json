@@ -1,0 +1,166 @@
+{
+  "version": "2.0.0",
+  "last_updated": "2026-03-23T17:30:00Z",
+  "project": {
+    "name": "nxt-ai-development",
+    "type": "ai-framework",
+    "stack": ["Python", "Claude Code", "Gemini", "Bash", "Supabase"],
+    "framework_version": "3.8.0",
+    "description": "NXT AI Development Framework - Multi-agent autonomous development system"
+  },
+  "architecture": {
+    "patterns": ["Multi-Agent Orchestration", "Event-Driven", "Plugin System", "Hook System", "Telemetry Pipeline", "Score-Aware Planning"],
+    "decisions": [
+      {
+        "id": "ADR-001",
+        "title": "Bash hooks over Python for telemetry",
+        "date": "2026-03-18",
+        "status": "accepted",
+        "context": "Hooks need zero dependencies to work on any machine",
+        "decision": "Rewrite hooks in pure bash + curl, keep Python as fallback",
+        "consequences": ["Zero dependency requirement met", "Works on fresh clone", "Slightly less feature-rich than Python version"]
+      },
+      {
+        "id": "ADR-002",
+        "title": "Supabase for centralized telemetry",
+        "date": "2026-03-18",
+        "status": "accepted",
+        "context": "Team needs visibility into framework usage across developers",
+        "decision": "Use self-hosted Supabase at nxtsupabase.gruponxt.dev with pg-meta SQL endpoint",
+        "consequences": ["Real-time team analytics", "SQL views for dashboards", "Requires Supabase server availability"]
+      },
+      {
+        "id": "ADR-003",
+        "title": "Fusion of UX + UI agents into Design",
+        "date": "2026-03-18",
+        "status": "accepted",
+        "context": "Separate UX and UI agents caused fragmentation in design workflow",
+        "decision": "Merge nxt-ux and nxt-uidev into single nxt-design agent",
+        "consequences": ["Unified design workflow", "Single command /nxt/design", "Deprecated /nxt/ux and /nxt/uidev"]
+      },
+      {
+        "id": "ADR-004",
+        "title": "Direct execution over Claude CLI",
+        "date": "2026-03-18",
+        "status": "accepted",
+        "context": "External Claude CLI required API key and added complexity",
+        "decision": "Slash commands instruct Claude to read agent files and execute directly",
+        "consequences": ["No external API key needed", "Simpler setup", "All execution within Claude Code session"]
+      },
+      {
+        "id": "ADR-005",
+        "title": "NXT Scorer - Score-aware planning",
+        "date": "2026-03-23",
+        "status": "accepted",
+        "context": "Orchestrator needed objective data to decide which agents to include in plans",
+        "decision": "Created nxt-scorer (12 areas, 41 metrics) that writes .nxt/scores.json. Orchestrator reads scores at planning time and auto-injects remediation agents when area score < 5.0",
+        "consequences": ["Data-driven planning", "Automatic remediation", "Score history for trends"]
+      },
+      {
+        "id": "ADR-006",
+        "title": "NXT as Claude Code Plugin - Viable path confirmed",
+        "date": "2026-03-23",
+        "status": "proposed",
+        "context": "Need to distribute NXT framework to other projects/teams without copying files manually",
+        "decision": "Package NXT as Claude Code plugin using .claude-plugin/plugin.json format. Publish to marketplace via https://clau.de/plugin-directory-submission. MCP server optional for Python tools.",
+        "consequences": [
+          "Install via: /plugin install nxt-dev-ai@gruponxt-marketplace",
+          "34 agents + 44 commands available in any project",
+          "Need to separate framework (distributable) from state (.nxt/, per-project)",
+          "Plugin format verified: same as feature-dev, code-review, ralph-loop (official plugins)",
+          "MCP resources confirmed working (ListMcpResourcesTool, ReadMcpResourceTool)"
+        ]
+      }
+    ]
+  },
+  "code_patterns": {
+    "naming": {
+      "agents": "nxt-{role}.md",
+      "skills": "SKILL-{name}.md",
+      "commands": "/nxt/{command}",
+      "hooks": "on-{event}.sh (bash) / on-{event}.py (python)"
+    },
+    "file_structure": {
+      "agents": "agentes/nxt-*.md",
+      "skills": "skills/**/*.md",
+      "commands": ".claude/commands/nxt/*.md",
+      "hooks": "hooks/on-*.sh",
+      "herramientas": "herramientas/*.py",
+      "state": ".nxt/state.json",
+      "scores": ".nxt/scores.json",
+      "context": ".nxt/context/",
+      "checkpoints": ".nxt/checkpoints/",
+      "telemetry": ".nxt/telemetry.jsonl"
+    }
+  },
+  "preferences": {
+    "language": "es",
+    "changelog_format": "keep-a-changelog",
+    "version_format": "semantic",
+    "hook_language": "bash",
+    "telemetry_backend": "supabase",
+    "autonomy_level": "full"
+  },
+  "current_state": {
+    "active_version": "3.8.0",
+    "config_version": "3.8.0",
+    "total_agents": 34,
+    "total_skills": 28,
+    "total_commands_nxt": 44,
+    "total_herramientas": 19,
+    "total_tests": 17,
+    "total_plantillas": 25,
+    "total_docs": 29,
+    "total_scripts": 4,
+    "hooks_active": ["on-user-message.sh", "on-session-start.sh"],
+    "telemetry_enabled": true,
+    "persistence_agents_active": true,
+    "scorer_active": true,
+    "global_score": 9.0,
+    "tests_passing": 289,
+    "plugin_viable": true
+  },
+  "history": {
+    "recent_tasks": [
+      {"task": "Full project deep analysis + documentation sync (34 agents, 28 skills, 44 commands)", "date": "2026-03-23", "status": "completed"},
+      {"task": "NXT Scorer implementation (12 areas, 41 metrics) + score-aware planning", "date": "2026-03-23", "status": "completed"},
+      {"task": "First scorer evaluation: global score 6.8/10", "date": "2026-03-23", "status": "completed"},
+      {"task": "Plugin system discovery and viability analysis (49 plugins verified)", "date": "2026-03-23", "status": "completed"},
+      {"task": "Docker compose, benchmarks, load tests, 5 new test files created", "date": "2026-03-23", "status": "completed"},
+      {"task": "pyproject.toml, CONTRIBUTING.md, runbook, safety/threat docs created", "date": "2026-03-23", "status": "completed"},
+      {"task": "Backup/alerting SOPs, plugin manifest, postmortem template, onboarding script", "date": "2026-03-23", "status": "completed"},
+      {"task": "CI upgraded to 9 quality gates, requirements pinned with pip-audit", "date": "2026-03-23", "status": "completed"},
+      {"task": "Score raised from 6.8 to 9.0 - 289 tests passing, 0 failures", "date": "2026-03-23", "status": "completed"},
+      {"task": "Persistence agents full execution", "date": "2026-03-19", "status": "completed"},
+      {"task": "Bash hooks rewrite (zero deps)", "date": "2026-03-18", "status": "completed"},
+      {"task": "Supabase telemetry integration", "date": "2026-03-18", "status": "completed"},
+      {"task": "Design agent fusion (UX+UI)", "date": "2026-03-18", "status": "completed"}
+    ],
+    "common_patterns": [
+      "Version sync needed between config files",
+      "Test tasks accumulate in state.json and need cleanup",
+      "Hooks need bash-first approach for portability",
+      "Documentation gets outdated when agents/skills are added - always update AGENTS.md, SKILLS.md, CLAUDE.md together"
+    ],
+    "learned_preferences": [
+      "User prefers autonomous execution without confirmation",
+      "Framework targets team-level visibility via telemetry",
+      "Zero-dependency philosophy for onboarding",
+      "User wants deep validation before presenting conclusions to leadership",
+      "Plugin distribution is a strategic priority for the team"
+    ]
+  },
+  "next_steps": {
+    "priority_1": "Package NXT as Claude Code plugin (.claude-plugin/plugin.json)",
+    "priority_2": "Address scorer critical areas: producto (4.0), performance (4.5)",
+    "priority_3": "Publish first release tag v3.8.0",
+    "plugin_checklist": [
+      "Create .claude-plugin/plugin.json",
+      "Restructure to plugin format (agents/, commands/, skills/)",
+      "Separate framework files from per-project state",
+      "Optional: Create MCP server for Python tools",
+      "Create marketplace repo with marketplace.json",
+      "Submit to official marketplace"
+    ]
+  }
+}

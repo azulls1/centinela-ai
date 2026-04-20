@@ -1,0 +1,671 @@
+# Agent Capabilities Mapping
+# ==========================
+# Define las capacidades y skills asignados a cada agente
+#
+# Versión: 3.8.0
+# Última actualización: 2026-03-20
+
+# ============================================
+# Capacidades por Agente
+# ============================================
+
+agents:
+  # ------------------------------------------
+  # Orquestador
+  # ------------------------------------------
+  nxt-orchestrator:
+    description: "Coordinador principal del equipo de agentes"
+    phase: all
+    skills: []
+    capabilities:
+      - task_classification
+      - agent_delegation
+      - workflow_management
+      - state_management
+      - decision_making
+    can_invoke:
+      - all
+
+  # ------------------------------------------
+  # Análisis y Descubrimiento
+  # ------------------------------------------
+  nxt-analyst:
+    description: "Analista de negocio y requisitos"
+    phase: descubrir
+    skills:
+      - markdown-advanced
+    capabilities:
+      - requirements_gathering
+      - stakeholder_analysis
+      - business_analysis
+      - competitive_research
+      - user_research
+    can_invoke:
+      - nxt-search
+      - nxt-pm
+
+  nxt-search:
+    description: "Búsquedas web con Gemini"
+    phase: any
+    skills:
+      - gemini
+    capabilities:
+      - web_search
+      - fact_checking
+      - information_retrieval
+      - content_discovery
+    can_invoke: []
+
+  # ------------------------------------------
+  # Definición y Planificación
+  # ------------------------------------------
+  nxt-pm:
+    description: "Product Manager"
+    phase: definir
+    skills:
+      - markdown-advanced
+      - docx
+    capabilities:
+      - prd_creation
+      - backlog_management
+      - roadmap_planning
+      - prioritization
+      - stakeholder_communication
+    can_invoke:
+      - nxt-analyst
+      - nxt-architect
+      - nxt-scrum-master
+
+  nxt-scrum-master:
+    description: "Scrum Master"
+    phase: planificar
+    skills:
+      - markdown-advanced
+    capabilities:
+      - sprint_planning
+      - story_breakdown
+      - estimation
+      - retrospectives
+      - impediment_removal
+    can_invoke:
+      - nxt-pm
+      - nxt-dev
+      - nxt-qa
+
+  # ------------------------------------------
+  # Diseño y Arquitectura
+  # ------------------------------------------
+  nxt-architect:
+    description: "Arquitecto de software"
+    phase: disenar
+    skills:
+      - diagrams
+      - markdown-advanced
+    capabilities:
+      - system_design
+      - architecture_decisions
+      - tech_stack_selection
+      - scalability_planning
+      - integration_design
+    can_invoke:
+      - nxt-cybersec
+      - nxt-database
+      - nxt-api
+
+  nxt-design:
+    description: "Product Designer & Design Engineer (v3.8.0 - fusion UX+UI)"
+    phase: disenar_construir
+    skills:
+      - diagrams
+      - code-review
+      - testing
+    capabilities:
+      # UX capabilities
+      - user_research
+      - wireframing
+      - prototyping
+      - usability_testing
+      - design_systems
+      # UI/Frontend capabilities
+      - frontend_development
+      - ui_components
+      - responsive_design
+      - accessibility
+      - css_styling
+      - visual_design
+    can_invoke:
+      - nxt-dev
+      - nxt-qa
+      - nxt-accessibility
+
+  # ------------------------------------------
+  # Desarrollo
+  # ------------------------------------------
+  nxt-dev:
+    description: "Desarrollador Full-Stack"
+    phase: construir
+    skills:
+      - code-review
+      - testing
+      - refactoring
+      - code-quality
+    capabilities:
+      - coding
+      - debugging
+      - unit_testing
+      - code_review
+      - refactoring
+    can_invoke:
+      - nxt-qa
+      - nxt-tech-writer
+
+  nxt-api:
+    description: "Desarrollador Backend/API"
+    phase: construir
+    skills:
+      - code-review
+      - testing
+      - api-docs
+    capabilities:
+      - backend_development
+      - api_design
+      - rest_graphql
+      - microservices
+      - server_logic
+    can_invoke:
+      - nxt-qa
+      - nxt-database
+
+  nxt-database:
+    description: "Administrador de Base de Datos"
+    phase: construir
+    skills:
+      - migrations
+    capabilities:
+      - database_design
+      - sql_nosql
+      - migrations
+      - optimization
+      - data_modeling
+    can_invoke:
+      - nxt-api
+
+  nxt-integrations:
+    description: "Especialista en Integraciones"
+    phase: construir
+    skills:
+      - webhooks
+      - mcp
+    capabilities:
+      - third_party_apis
+      - webhooks
+      - oauth
+      - data_sync
+      - external_services
+    can_invoke:
+      - nxt-api
+
+  nxt-flows:
+    description: "Especialista en Flujos de Datos"
+    phase: construir
+    skills:
+      - diagrams
+    capabilities:
+      - data_pipelines
+      - etl
+      - batch_processing
+      - event_streaming
+      - workflow_automation
+    can_invoke:
+      - nxt-database
+
+  # ------------------------------------------
+  # Verificación y Calidad
+  # ------------------------------------------
+  nxt-qa:
+    description: "QA Engineer"
+    phase: verificar
+    skills:
+      - testing
+      - code-review
+    capabilities:
+      - test_planning
+      - test_execution
+      - bug_reporting
+      - regression_testing
+      - quality_assurance
+    can_invoke:
+      - nxt-dev
+      - nxt-tech-writer
+
+  nxt-cybersec:
+    description: "Especialista en Seguridad"
+    phase: verificar
+    skills:
+      - security
+      - code-review
+    capabilities:
+      - security_audit
+      - vulnerability_assessment
+      - owasp_compliance
+      - penetration_testing
+      - security_policies
+    can_invoke:
+      - nxt-dev
+      - nxt-devops
+
+  # ------------------------------------------
+  # DevOps y Documentación
+  # ------------------------------------------
+  nxt-devops:
+    description: "DevOps Engineer"
+    phase: construir
+    skills:
+      - containers
+      - monitoring
+    capabilities:
+      - ci_cd
+      - deployment
+      - infrastructure
+      - monitoring
+      - cloud_services
+    can_invoke:
+      - nxt-cybersec
+
+  nxt-tech-writer:
+    description: "Technical Writer"
+    phase: any
+    skills:
+      - markdown-advanced
+      - api-docs
+      - docx
+      - pdf
+    capabilities:
+      - documentation
+      - api_docs
+      - user_guides
+      - technical_specs
+      - readme_files
+    can_invoke: []
+
+  # ------------------------------------------
+  # Multimedia
+  # ------------------------------------------
+  nxt-media:
+    description: "Especialista en Multimedia"
+    phase: any
+    skills:
+      - gemini
+    capabilities:
+      - image_generation
+      - video_creation
+      - audio_processing
+      - multimedia_content
+      - visual_assets
+    can_invoke: []
+
+  # ------------------------------------------
+  # Paige (BMAD)
+  # ------------------------------------------
+  nxt-paige:
+    description: "Guía del proyecto BMAD"
+    phase: any
+    skills: []
+    capabilities:
+      - project_guidance
+      - methodology_adherence
+      - best_practices
+      - workflow_optimization
+      - team_coordination
+    can_invoke:
+      - all
+
+  # ------------------------------------------
+  # Specialized Agents (v3.1.0+)
+  # ------------------------------------------
+  nxt-infra:
+    description: "Infrastructure Engineer (Terraform/K8s)"
+    phase: construir
+    skills:
+      - containers
+    capabilities:
+      - terraform
+      - kubernetes
+      - helm
+      - cloud_platforms
+      - iac
+    can_invoke:
+      - nxt-devops
+      - nxt-cybersec
+
+  nxt-migrator:
+    description: "Migration Specialist"
+    phase: construir
+    skills:
+      - migrations
+      - code-quality
+    capabilities:
+      - code_migration
+      - framework_upgrades
+      - legacy_modernization
+      - dependency_updates
+    can_invoke:
+      - nxt-dev
+      - nxt-qa
+
+  nxt-performance:
+    description: "Performance Engineer"
+    phase: verificar
+    skills:
+      - monitoring
+      - code-quality
+    capabilities:
+      - web_vitals
+      - profiling
+      - bundle_analysis
+      - load_testing
+    can_invoke:
+      - nxt-dev
+
+  nxt-accessibility:
+    description: "Accessibility Specialist"
+    phase: verificar
+    skills:
+      - testing
+    capabilities:
+      - wcag_compliance
+      - aria_implementation
+      - screen_reader_testing
+      - keyboard_navigation
+    can_invoke:
+      - nxt-design
+      - nxt-qa
+
+  nxt-mobile:
+    description: "Mobile Developer"
+    phase: construir
+    skills:
+      - testing
+      - code-review
+    capabilities:
+      - react_native
+      - flutter
+      - ios
+      - android
+      - pwa
+    can_invoke:
+      - nxt-qa
+
+  nxt-data:
+    description: "Data Engineer"
+    phase: construir
+    skills:
+      - diagrams
+    capabilities:
+      - etl_pipelines
+      - airflow
+      - dbt
+      - data_warehouse
+      - spark
+    can_invoke:
+      - nxt-database
+
+  nxt-aiml:
+    description: "AI/ML Engineer"
+    phase: construir
+    skills:
+      - testing
+    capabilities:
+      - machine_learning
+      - mlops
+      - llm_engineering
+      - rag_systems
+      - model_training
+    can_invoke:
+      - nxt-dev
+      - nxt-data
+
+  nxt-compliance:
+    description: "Compliance Specialist"
+    phase: verificar
+    skills:
+      - security
+    capabilities:
+      - gdpr
+      - hipaa
+      - soc2
+      - privacy_audit
+      - license_compliance
+    can_invoke:
+      - nxt-cybersec
+      - nxt-tech-writer
+
+  nxt-realtime:
+    description: "Realtime Systems Engineer"
+    phase: construir
+    skills:
+      - testing
+    capabilities:
+      - websockets
+      - sse
+      - streaming
+      - presence_systems
+      - pubsub
+    can_invoke:
+      - nxt-api
+      - nxt-qa
+
+  nxt-localization:
+    description: "Localization Specialist"
+    phase: construir
+    skills:
+      - markdown-advanced
+    capabilities:
+      - i18n
+      - l10n
+      - translation_management
+      - rtl_support
+      - locale_formatting
+    can_invoke:
+      - nxt-tech-writer
+
+  nxt-edge-case-hunter:
+    description: "Adversarial Edge Case Reviewer (v3.8.0)"
+    phase: verificar
+    skills:
+      - testing
+      - code-quality
+    capabilities:
+      - boundary_condition_review
+      - adversarial_testing
+      - anti_hallucination_checks
+      - edge_case_identification
+      - regression_risk_assessment
+    can_invoke:
+      - nxt-qa
+      - nxt-dev
+
+  # ------------------------------------------
+  # Context & Automation Agents (v3.3.0)
+  # ------------------------------------------
+  nxt-context:
+    description: "Context Manager"
+    phase: any
+    skills:
+      - mcp
+    capabilities:
+      - session_context
+      - adr_capture
+      - pattern_recording
+      - mcp_memory_sync
+      - context_search
+    can_invoke: []
+
+  nxt-changelog:
+    description: "Changelog Generator"
+    phase: any
+    skills:
+      - changelog
+      - markdown-advanced
+    capabilities:
+      - changelog_generation
+      - conventional_commits
+      - semantic_versioning
+      - release_notes
+    can_invoke: []
+
+  nxt-ralph:
+    description: "Autonomous Developer (Ralph Loop)"
+    phase: construir
+    skills:
+      - testing
+      - code-quality
+    capabilities:
+      - autonomous_development
+      - iterative_loops
+      - checkpoint_management
+      - auto_recovery
+      - progress_documentation
+    can_invoke:
+      - nxt-dev
+      - nxt-qa
+      - nxt-multicontext
+
+  nxt-multicontext:
+    description: "Multi-Context Persistence Manager"
+    phase: any
+    skills:
+      - context-persistence
+    capabilities:
+      - context_persistence
+      - checkpoint_system
+      - state_serialization
+      - recovery_management
+      - session_continuity
+    can_invoke:
+      - nxt-context
+
+# ============================================
+# Grafo de Delegación
+# ============================================
+delegation_graph:
+  # Quién puede invocar a quién
+  nxt-orchestrator: ["*"]  # Puede invocar a todos
+  nxt-paige: ["*"]  # Puede invocar a todos
+  nxt-ralph: ["*"]  # Puede invocar a todos (autonomo)
+
+  # Flujo normal
+  nxt-analyst: [nxt-search, nxt-pm]
+  nxt-pm: [nxt-analyst, nxt-architect, nxt-scrum-master]
+  nxt-scrum-master: [nxt-pm, nxt-dev, nxt-qa]
+  nxt-architect: [nxt-cybersec, nxt-database, nxt-api, nxt-dev, nxt-infra]
+  nxt-design: [nxt-dev, nxt-qa, nxt-accessibility]  # v3.8.0: reemplaza nxt-ux y nxt-uidev
+
+  nxt-dev: [nxt-qa, nxt-tech-writer]
+  nxt-api: [nxt-qa, nxt-database, nxt-realtime]
+  nxt-database: [nxt-api, nxt-data]
+  nxt-integrations: [nxt-api]
+  nxt-flows: [nxt-database, nxt-data]
+
+  nxt-qa: [nxt-dev, nxt-tech-writer]
+  nxt-cybersec: [nxt-dev, nxt-devops, nxt-compliance]
+  nxt-devops: [nxt-cybersec, nxt-infra]
+
+  # Specialized agents
+  nxt-infra: [nxt-devops, nxt-cybersec]
+  nxt-migrator: [nxt-dev, nxt-qa]
+  nxt-performance: [nxt-dev]
+  nxt-accessibility: [nxt-design, nxt-qa]  # v3.8.0: colabora con design
+  nxt-mobile: [nxt-qa]
+  nxt-data: [nxt-database]
+  nxt-aiml: [nxt-dev, nxt-data]
+  nxt-compliance: [nxt-cybersec, nxt-tech-writer]
+  nxt-realtime: [nxt-api, nxt-qa]
+  nxt-localization: [nxt-tech-writer]
+  nxt-edge-case-hunter: [nxt-qa, nxt-dev]
+
+  # Context & automation
+  nxt-context: []
+  nxt-changelog: []
+  nxt-multicontext: [nxt-context]
+
+  # No delegation
+  nxt-tech-writer: []
+  nxt-search: []
+  nxt-media: []
+
+# ============================================
+# Skills por Categoría
+# ============================================
+skill_categories:
+  documentos:
+    - docx
+    - pdf
+    - pptx
+    - xlsx
+    - markdown-advanced
+    - api-docs
+
+  desarrollo:
+    - testing
+    - code-review
+    - security
+    - diagrams
+    - code-quality
+    - migrations
+    - monitoring
+    - containers
+    - root-cause-analysis
+    - implementation-readiness
+    - mobile-testing
+    - mobile-ci
+    - mobile-performance
+    - app-store
+    - mobile-security
+    - mobile-analytics
+    - mobile-ux
+    # v3.3.0
+    - changelog
+    - context-persistence
+
+  integraciones:
+    - gemini
+    - openai
+    - mcp
+    - webhooks
+
+# ============================================================
+# NXT Scorer - Evaluador de Salud del Proyecto (v3.8.0)
+# ============================================================
+nxt-scorer:
+  description: "Evaluador integral de metricas y salud del proyecto"
+  phase: verificar
+  skills:
+    - testing
+    - security
+    - monitoring
+    - code-quality
+    - root-cause-analysis
+  capabilities:
+    - evaluate_technical_debt
+    - evaluate_architecture
+    - evaluate_maintainability
+    - evaluate_test_coverage
+    - evaluate_performance
+    - evaluate_security
+    - evaluate_resilience
+    - evaluate_devops
+    - evaluate_ai_models
+    - evaluate_product_team
+    - generate_score_card
+    - compare_evaluations
+    - trend_analysis
+  can_invoke:
+    - nxt-qa
+    - nxt-cybersec
+    - nxt-performance
+    - nxt-devops
+    - nxt-architect
+    - nxt-dev
+    - nxt-pm
+    - nxt-aiml

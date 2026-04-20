@@ -1,0 +1,80 @@
+# =============================================================================
+# NXT Framework - Configuracion SOPS para Cifrado de Secretos
+# =============================================================================
+#
+# SOPS (Secrets OPerationS) cifra archivos de secretos en reposo.
+# Usamos "age" como backend por ser el mas simple (sin dependencias cloud).
+#
+# === SETUP INICIAL (una sola vez) ===
+#
+#   1. Instalar SOPS y age:
+#      brew install sops age          # macOS
+#      choco install sops age         # Windows
+#      apt install sops age           # Ubuntu/Debian
+#
+#   2. Generar tu clave age:
+#      age-keygen -o ~/.config/sops/age/keys.txt
+#      # Esto imprime tu clave publica (age1...). Copiarla abajo.
+#
+#   3. Copiar este archivo como .sops.yaml (sin .example):
+#      cp .nxt/sops.yaml.example .sops.yaml
+#
+#   4. Pegar tu clave publica en el campo "age" de abajo.
+#
+# === USO DIARIO ===
+#
+#   # Cifrar el archivo de secretos de Supabase:
+#   sops --encrypt .nxt/supabase.env > .nxt/supabase.env.enc
+#
+#   # Descifrar para usar:
+#   sops --decrypt .nxt/supabase.env.enc > .nxt/supabase.env
+#
+#   # Editar in-place (descifra, abre editor, re-cifra):
+#   sops .nxt/supabase.env.enc
+#
+# === IMPORTANTE ===
+#
+#   - NUNCA commitear .nxt/supabase.env (sin cifrar) al repo
+#   - SI commitear .nxt/supabase.env.enc (cifrado) es seguro
+#   - Agregar a .gitignore: .nxt/supabase.env
+#   - La clave privada vive en ~/.config/sops/age/keys.txt (NUNCA compartir)
+#
+# =============================================================================
+
+# Configuracion SOPS
+creation_rules:
+  # Regla para archivos .env dentro de .nxt/
+  - path_regex: \.nxt/.*\.env$
+    age: "age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    # ^^^ Reemplazar con tu clave publica de: age-keygen
+
+  # Regla para cualquier archivo de secretos YAML
+  - path_regex: \.nxt/secrets\.yaml$
+    age: "age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# =============================================================================
+# EJEMPLO: Archivo .nxt/supabase.env SIN cifrar (asi se ve en tu editor)
+# =============================================================================
+#
+#   NXT_SUPABASE_URL=https://nxtsupabase.gruponxt.dev
+#   NXT_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6...
+#   NXT_SUPABASE_SERVICE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6...
+#
+# =============================================================================
+# EJEMPLO: Mismo archivo CIFRADO con SOPS (asi se ve en el repo)
+# =============================================================================
+#
+#   NXT_SUPABASE_URL=ENC[AES256_GCM,data:kxH3mF...,iv:abc...,tag:def...]
+#   NXT_SUPABASE_ANON_KEY=ENC[AES256_GCM,data:Pq9zL...,iv:ghi...,tag:jkl...]
+#   NXT_SUPABASE_SERVICE_KEY=ENC[AES256_GCM,data:Rm4wN...,iv:mno...,tag:pqr...]
+#   sops:
+#       age:
+#           - recipient: age1xxxxxxxx...
+#             enc: |
+#               -----BEGIN AGE ENCRYPTED FILE-----
+#               YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+...
+#               -----END AGE ENCRYPTED FILE-----
+#       lastmodified: "2026-03-23T00:00:00Z"
+#       version: 3.9.0
+#
+# =============================================================================

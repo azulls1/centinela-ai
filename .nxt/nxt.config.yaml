@@ -1,0 +1,476 @@
+# ============================================================================
+# NXT AI Development - Configuracion Principal
+# Version: 3.8.0
+# ============================================================================
+
+framework:
+  nombre: "NXT AI Development"
+  version: "3.8.0"
+  base: "BMAD v6 Stable (v6.2.0) + Claude Skills + Multi-LLM + Self-Healing + Auto-Persistence + Team Telemetry"
+  tagline: "Construyendo el futuro, un sprint a la vez"
+  idioma: "es"
+
+empresa:
+  nombre: "IAGENTEK"
+  colores:
+    primario: "#04202C"    # Forest
+    secundario: "#5B7065"  # Pine
+    acento: "#304040"      # Evergreen
+    exito: "#059669"       # Verde
+
+# Configuracion del desarrollador
+desarrollador:
+  nombre: "Samael Hernández"
+  rol: "Full-Stack Developer + AI-Augmented Team"
+  nivel_tecnico: "advanced"  # beginner, intermediate, advanced
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ORQUESTADOR PRINCIPAL
+# ═══════════════════════════════════════════════════════════════════════════════
+orquestador:
+  llm_principal: "claude"
+  modelo_claude: "claude-opus-4-5-20251101"  # Claude Opus 4.5 - Mejor para codigo y razonamiento
+  mostrar_bienvenida: true
+  delegacion:
+    busquedas: "gemini"                    # Search grounding, Maps, info actual
+    multimedia: "gemini"                   # Imagenes (Nano Banana Pro), video (Veo 3), audio
+    documentos: "claude"                   # docx, pdf, pptx, xlsx (Opus 4.5)
+    codigo: "claude"                       # Generacion y revision de codigo (Opus 4.5)
+    razonamiento_codigo: "claude"          # Logica y arquitectura (Opus 4.5)
+    razonamiento_info_actual: "gemini"     # Razonamiento + busqueda (Gemini 3 Pro)
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTES IA (basado en BMAD Method v6)
+# ═══════════════════════════════════════════════════════════════════════════════
+agentes:
+  habilitados:
+    # Core Team
+    - nxt-orchestrator    # Director del equipo
+    - nxt-analyst         # Analista de negocio
+    - nxt-pm              # Product Manager
+    - nxt-architect       # Arquitecto de software
+    - nxt-design          # Product Designer & Design Engineer (fusion UX+UI)
+    - nxt-dev             # Desarrollador
+    - nxt-qa              # Quality Assurance
+    # Especialistas (v3.1.0)
+    - nxt-cybersec        # Seguridad y auditoria
+    - nxt-api             # Desarrollo Backend/APIs
+    - nxt-database        # Base de datos
+    - nxt-integrations    # Integraciones externas
+    - nxt-flows           # Flujos de datos y jobs
+    # Multi-LLM
+    - nxt-search          # Busquedas (Gemini)
+    - nxt-media           # Multimedia (Gemini)
+    # Soporte (v3.1.0)
+    - nxt-paige           # Documentacion y onboarding
+    # Especializados (v3.1.0+)
+    - nxt-infra           # Infrastructure (Terraform/K8s)
+    - nxt-migrator        # Migraciones de codigo
+    - nxt-performance     # Optimizacion y profiling
+    - nxt-accessibility   # Accesibilidad WCAG
+    - nxt-mobile          # Mobile (React Native/Flutter)
+    - nxt-data            # Data Engineering
+    - nxt-aiml            # AI/ML Engineering
+    - nxt-compliance      # Compliance (GDPR/HIPAA)
+    - nxt-realtime        # Realtime (WebSockets/SSE)
+    - nxt-localization    # i18n/l10n
+    # Context & Automation (v3.3.0)
+    - nxt-context         # Gestion de contexto
+    - nxt-changelog       # Generacion de changelogs
+    - nxt-ralph           # Desarrollo autonomo
+    - nxt-multicontext    # Persistencia de contexto
+    # Evaluacion & Scoring (v3.8.0)
+    - nxt-scorer          # Evaluador de salud del proyecto (10 areas)
+    - nxt-edge-case-hunter # Review adversarial de boundaries
+
+  configuracion:
+    estilo: "profesional"
+    tono: "colaborativo"
+    mostrar_bienvenida: true
+
+  # Agentes heredados de BMAD (compatibilidad)
+  bmad_legacy:
+    analysis:
+      - analyst
+      - researcher
+    planning:
+      - pm
+      - po
+    solutioning:
+      - architect
+      - ux
+      - tech-lead
+      - test-architect
+    implementation:
+      - sm
+      - dev
+      - reviewer
+      - qa
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SKILLS DE CLAUDE
+# ═══════════════════════════════════════════════════════════════════════════════
+skills:
+  documentos:
+    - docx      # Documentos Word
+    - pdf       # PDFs
+    - pptx      # Presentaciones
+    - xlsx      # Hojas de calculo
+    - markdown-advanced  # Markdown extendido
+    - api-docs  # OpenAPI/Swagger
+
+  desarrollo:
+    - testing        # Pruebas automatizadas
+    - diagrams       # Diagramas tecnicos
+    - code-quality   # Code quality + refactoring
+    - migrations     # Database migrations
+    - monitoring     # Prometheus/Grafana
+    - containers     # Docker/K8s
+    - security       # Security audit
+    # v3.3.0
+    - changelog      # Generacion de changelogs
+    - context-persistence  # Persistencia de contexto
+    # v3.8.0 - Mobile Track
+    - mobile-security    # Seguridad MASVS mobile
+    - mobile-analytics   # Post-launch analytics y observabilidad
+    - mobile-ux          # UX patterns platform-adaptive
+    - root-cause-analysis   # 5 Whys + Pyramid Communication
+    - implementation-readiness  # Gate PASS/CONCERNS/FAIL
+    - mobile-testing     # E2E testing Detox/Maestro/patrol
+    - mobile-ci          # Fastlane, EAS Build, Codemagic
+    - mobile-performance # Startup, memory, 60fps, ANR
+    - app-store          # ASO, store listing, rejection prevention
+
+  integraciones:
+    - gemini    # Google Gemini API
+    - openai    # OpenAI API
+    - mcp       # Model Context Protocol
+    - webhooks  # Webhooks
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INTEGRACIONES EXTERNAS
+# ═══════════════════════════════════════════════════════════════════════════════
+gemini:
+  modelo_default: "gemini-3-pro-preview"
+  capacidades:
+    # Busquedas y contexto
+    - search_grounding     # Busqueda web con citas
+    - maps_grounding       # 250M+ lugares
+    - url_context          # Analisis de URLs web
+    - context_1m           # 1M tokens de contexto
+    # Multimedia (Opcion A - Todo Gemini)
+    - nano_banana_pro      # Generar imagenes (mejor modelo, edicion, consistencia)
+    - veo_3                # Generar videos con audio nativo
+    - native_audio         # TTS 30 voces
+    - live_audio           # Audio en tiempo real
+    # Codigo y razonamiento
+    - code_execution       # Ejecutar Python
+    - deep_think           # Razonamiento profundo
+
+  uso_recomendado:
+    - "Informacion actual y reciente"
+    - "Busquedas en Google"
+    - "Ubicaciones, restaurantes, lugares"
+    - "Verificacion de hechos"
+    - "Documentos muy grandes (>200K tokens)"
+    - "Analisis de URLs web"
+    - "Generar imagenes con texto/logos (Nano Banana Pro)"
+    - "Crear videos con audio (Veo 3)"
+    - "Text-to-speech (30 voces)"
+    - "Analisis visual de imagenes"
+
+openai:
+  modelo_default: "gpt-4o"
+  habilitado: false  # Deshabilitado - usando Gemini para multimedia
+  capacidades:
+    - whisper              # Transcripcion 99+ idiomas (backup)
+    - vision               # Analisis de imagenes (backup)
+    - o_series             # Razonamiento avanzado (backup)
+
+  uso_recomendado:
+    - "Transcripcion de audio (Whisper) - solo si Gemini falla"
+    - "Backup para casos especificos"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# WORKFLOWS (Fases del desarrollo)
+# ═══════════════════════════════════════════════════════════════════════════════
+workflows:
+  fases:
+    - nombre: "descubrir"
+      descripcion: "Brainstorming, investigacion, analisis"
+      agente: "nxt-analyst"
+      entregables: ["project-brief", "market-research", "user-personas"]
+
+    - nombre: "definir"
+      descripcion: "Crear PRD, requisitos, alcance"
+      agente: "nxt-pm"
+      entregables: ["prd", "user-stories", "backlog"]
+
+    - nombre: "disenar"
+      descripcion: "Arquitectura, UX, diseno tecnico"
+      agente: "nxt-architect"
+      entregables: ["architecture", "tech-spec", "diagrams"]
+
+    - nombre: "planificar"
+      descripcion: "Sprint planning, story sharding"
+      agente: "nxt-pm"
+      entregables: ["sprint-backlog", "stories", "epics"]
+
+    - nombre: "construir"
+      descripcion: "Desarrollo iterativo"
+      agente: "nxt-dev"
+      entregables: ["codigo", "documentacion", "commits"]
+
+    - nombre: "verificar"
+      descripcion: "Testing, QA, validacion"
+      agente: "nxt-qa"
+      entregables: ["test-results", "qa-report", "bugs"]
+
+  greenfield:
+    - workflow-init
+    - brainstorm-project
+    - research
+    - product-brief
+    - plan-project
+    - create-prd
+    - architecture
+    - tech-spec
+    - ux-design
+    - create-epics
+    - sprint-planning
+    - create-story
+    - story-context
+    - dev-story
+    - code-review
+    - qa-validation
+
+  brownfield:
+    - document-project
+    - analyze-codebase
+    - create-brownfield-prd
+    - create-brownfield-architecture
+    - risk-assessment
+    - create-brownfield-epic
+    - create-brownfield-story
+    - story-context
+    - dev-story
+    - code-review
+    - regression-testing
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CONFIGURACION DE ESCALA (BMAD v6 Stable (v6.2.0) - 5 Niveles)
+# ═══════════════════════════════════════════════════════════════════════════════
+escala:
+  default_track: "auto"  # auto, instant, quick_flow, bmad_method, full_planning, enterprise
+  niveles:
+    nivel_0:
+      nombre: "Trivial"
+      tiempo: "< 15min"
+      agentes: ["dev"]
+      documentacion: "ninguna"
+      track: "instant"
+    nivel_1:
+      nombre: "Simple"
+      tiempo: "15min-1h"
+      agentes: ["dev", "qa"]
+      documentacion: "minima"
+      track: "quick_flow"
+    nivel_2:
+      nombre: "Estandar"
+      tiempo: "1-8h"
+      agentes: ["dev", "qa", "pm"]
+      documentacion: "story+tests"
+      track: "bmad_method"
+    nivel_3:
+      nombre: "Complejo"
+      tiempo: "8-40h"
+      agentes: ["full_team"]
+      documentacion: "prd+arch"
+      track: "full_planning"
+    nivel_4:
+      nombre: "Enterprise"
+      tiempo: "40h+"
+      agentes: ["multi_team"]
+      documentacion: "completa"
+      track: "enterprise_track"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TECH STACK PREFERIDO
+# ═══════════════════════════════════════════════════════════════════════════════
+tech_stack:
+  frontend:
+    preferidos: ["react", "next", "vue", "angular"]
+    default: "react"
+  backend:
+    preferidos: ["node", "python", "express", "fastapi"]
+    default: "node"
+  database:
+    preferidos: ["postgresql", "mongodb", "mysql"]
+    default: "postgresql"
+  cloud:
+    preferidos: ["aws", "gcp", "azure", "digitalocean"]
+    default: "aws"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SALIDAS
+# ═══════════════════════════════════════════════════════════════════════════════
+salidas:
+  formatos:
+    documentos: "docx"
+    presentaciones: "pptx"
+    hojas_calculo: "xlsx"
+    diagramas: "svg"
+    reportes: "pdf"
+
+  directorios:
+    docs: "./docs"
+    analysis: "./docs/1-analysis"
+    planning: "./docs/2-planning"
+    solutioning: "./docs/3-solutioning"
+    implementation: "./docs/4-implementation"
+    diagrams: "./docs/diagrams"
+    codigo: "./src"
+    tests: "./tests"
+
+  nomenclatura: "kebab-case"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ESTRUCTURA DEL PROYECTO (Consolidada)
+# ═══════════════════════════════════════════════════════════════════════════════
+estructura:
+  # Configuracion principal (UNICA fuente de verdad)
+  config: ".nxt/"
+
+  # Agentes NXT (principales, con multi-LLM)
+  agentes_nxt: "agentes/"
+
+  # Skills NXT (con integraciones Gemini/OpenAI)
+  skills_nxt: "skills/"
+
+  # Herramientas CLI Python
+  herramientas: "herramientas/"
+
+  # Workflows por fase
+  workflows_nxt: "workflows/"
+
+  # Plantillas de documentos
+  plantillas: "plantillas/"
+
+  # Modulo BMAD base (referencia, workflows avanzados)
+  bmad_base: "nxt/"
+  bmad_nota: "Contiene agentes y workflows BMAD originales para compatibilidad"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# MAPEO DE COMPONENTES
+# ═══════════════════════════════════════════════════════════════════════════════
+mapeo:
+  # Usar estos (NXT v3.8.0)
+  usar:
+    config: ".nxt/nxt.config.yaml"
+    agentes: "agentes/nxt-*.md"
+    skills: "skills/**/*.md"
+    herramientas: "herramientas/*.py"
+    workflows: "workflows/*/*.md"
+    plantillas: "plantillas/*.md"
+
+  # Referencia/compatibilidad (BMAD base)
+  referencia:
+    agentes_bmad: "nxt/method/agents/**/*.agent.md"
+    skills_bmad: "nxt/skills/*/SKILL.md"
+    workflows_bmad: "nxt/method/workflows/**/*.yaml"
+    checklists: "nxt/method/checklists/*.md"
+    templates_bmad: "nxt/method/templates/*.md"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTES DE PERSISTENCIA (v3.8.0) - EJECUCIÓN AUTOMÁTICA
+# ═══════════════════════════════════════════════════════════════════════════════
+persistencia:
+  habilitado: true
+  descripcion: "Agentes que se ejecutan automáticamente para mantener contexto y documentación"
+
+  agentes:
+    - nombre: "nxt-context"
+      archivo: "agentes/nxt-context.md"
+      proposito: "Gestión de contexto entre sesiones"
+      triggers: ["always", "on_session_start", "on_session_end"]
+
+    - nombre: "nxt-multicontext"
+      archivo: "agentes/nxt-multicontext.md"
+      proposito: "Checkpoints y recovery automático"
+      triggers: ["on_session_start", "on_agent_switch", "on_checkpoint"]
+
+    - nombre: "nxt-changelog"
+      archivo: "agentes/nxt-changelog.md"
+      proposito: "Documentación automática de cambios"
+      triggers: ["on_task_complete", "on_session_end"]
+
+    - nombre: "nxt-ralph"
+      archivo: "agentes/nxt-ralph.md"
+      proposito: "Desarrollo autónomo iterativo"
+      triggers: ["on_checkpoint"]
+
+  triggers:
+    on_session_start:
+      - "nxt-context"
+      - "nxt-multicontext"
+    on_task_complete:
+      - "nxt-changelog"
+      - "nxt-context"
+    on_agent_switch:
+      - "nxt-multicontext"
+    on_checkpoint:
+      - "nxt-multicontext"
+      - "nxt-ralph"
+    on_session_end:
+      - "nxt-context"
+      - "nxt-changelog"
+    # TRIGGER PRINCIPAL: CADA interacción ejecuta TODOS los agentes
+    always:
+      - "nxt-context"
+      - "nxt-multicontext"
+      - "nxt-changelog"
+      - "nxt-ralph"
+    on_every_interaction:
+      - "nxt-context"
+      - "nxt-multicontext"
+      - "nxt-changelog"
+      - "nxt-ralph"
+
+  comandos:
+    context: "/nxt/context"
+    checkpoint: "/nxt/checkpoint"
+    resume: "/nxt/resume"
+    changelog: "/nxt/changelog"
+    persistence_cli: "python herramientas/nxt_orchestrator_v3.py persistence"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TELEMETRÍA / ANALYTICS (v3.8.0) - MÉTRICAS DE USO DEL EQUIPO
+# ═══════════════════════════════════════════════════════════════════════════════
+telemetria:
+  habilitado: true              # Logging local siempre activo
+  supabase:
+    habilitado: true             # Enviar a Supabase en tiempo real
+    url: "https://nxtsupabase.gruponxt.dev"
+    anon_key: "${NXT_SUPABASE_ANON_KEY}"
+    service_key: "${NXT_SUPABASE_SERVICE_KEY}"
+    timeout_seconds: 3
+  webhook:
+    habilitado: false            # Webhook genérico (legacy, OFF)
+    url: ""
+    batch_size: 50
+    timeout_seconds: 3
+  local:
+    archivo: ".nxt/telemetry.jsonl"   # Backup local (append-only JSONL)
+    max_size_mb: 50
+    retention_days: 90
+  identity:
+    source: "auto"               # auto | git | env | os
+  privacidad:
+    anonimizar_email: false      # Hash SHA-256 de emails antes de enviar
+    excluir_task_content: false   # Reemplazar descripciones con [redacted]
+  comandos:
+    stats: "python herramientas/nxt_orchestrator_v3.py telemetry stats"
+    flush: "python herramientas/nxt_orchestrator_v3.py telemetry flush"
+    status: "python herramientas/nxt_orchestrator_v3.py telemetry status"
+    prune: "python herramientas/nxt_orchestrator_v3.py telemetry prune"
+    supabase_test: "python herramientas/nxt_orchestrator_v3.py telemetry supabase-test"

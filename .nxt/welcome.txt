@@ -1,0 +1,64 @@
+
+===============================================================================================================
+
+         ███╗   ██╗██╗  ██╗████████╗     █████╗ ██╗    ██████╗ ███████╗██╗   ██╗
+         ████╗  ██║╚██╗██╔╝╚══██╔══╝    ██╔══██╗██║    ██╔══██╗██╔════╝██║   ██║
+         ██╔██╗ ██║ ╚███╔╝    ██║       ███████║██║    ██║  ██║█████╗  ██║   ██║
+         ██║╚██╗██║ ██╔██╗    ██║       ██╔══██║██║    ██║  ██║██╔══╝  ╚██╗ ██╔╝
+         ██║ ╚████║██╔╝ ██╗   ██║       ██║  ██║██║    ██████╔╝███████╗ ╚████╔╝
+         ╚═╝  ╚═══╝╚═╝  ╚═╝   ╚═╝       ╚═╝  ╚═╝╚═╝    ╚═════╝ ╚══════╝  ╚═══╝
+
+                              ════════════════════════════════════════════
+                                         AI DEVELOPMENT TOOLKIT
+                                              VERSION 3.8.0
+                              ════════════════════════════════════════════
+
+                                  "Construyendo el futuro, un sprint a la vez"
+
+===============================================================================================================
+
+  ┌─────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │  34 AGENTES IA                     │  21 SKILLS                 │  ARQUITECTURA LLM                    │
+  │  ─────────────────────────────     │  ─────────────────────     │  ─────────────────────────────────   │
+  │  Core: Orchestrator, Analyst,      │  docx, pdf, pptx, xlsx     │  CLAUDE   -> Codigo, documentos,     │
+  │        PM, Architect, UX, Dev,     │  testing, code-review      │              razonamiento            │
+  │        QA, Docs, Scrum, DevOps     │  diagrams, gemini          │  GEMINI   -> Busquedas, multimedia,  │
+  │  Especialistas: CyberSec, UIDev,   │                            │              imagenes, video, TTS    │
+  │        API, Database, Integrations,│                            │                                      │
+  │        Flows, Search, Media        │                            │                                      │
+  └─────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+  ┌─────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │  COMANDOS DISPONIBLES (21)                                                                              │
+  ├─────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │                                                                                                         │
+  │  GENERALES                         │  CORE TEAM                        │  ESPECIALISTAS                 │
+  │  ──────────────────────────────    │  ─────────────────────────────    │  ───────────────────────────   │
+  │  /nxt/orchestrator -> Director     │  /nxt/analyst   -> Analisis       │  /nxt/cybersec -> Seguridad    │
+  │  /nxt/init         -> Inicializar  │  /nxt/pm        -> PRD/Requisitos │  /nxt/uidev    -> UI/Frontend  │
+  │  /nxt/status       -> Estado       │  /nxt/architect -> Arquitectura   │  /nxt/api      -> Backend      │
+  │  /nxt/help         -> Ayuda        │  /nxt/ux        -> Diseno UX      │  /nxt/database -> Base datos   │
+  │                                    │  /nxt/dev       -> Desarrollo     │  /nxt/integrations -> APIs ext │
+  │                                    │  /nxt/qa        -> Testing        │  /nxt/flows    -> Pipelines    │
+  │                                    │  /nxt/docs      -> Documentacion  │  /nxt/search   -> Busquedas    │
+  │                                    │  /nxt/scrum     -> Scrum Master   │  /nxt/media    -> Multimedia   │
+  │                                    │  /nxt/devops    -> CI/CD          │                                │
+  │                                                                                                         │
+  └─────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+  ┌─────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │  ¿EN QUE TE PUEDO AYUDAR?                                                                               │
+  ├─────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │                                                                                                         │
+  │  * Investigar y analizar requisitos          * Disenar arquitectura de software                         │
+  │  * Crear PRDs y user stories                 * Desarrollar codigo de calidad                            │
+  │  * Disenar experiencia de usuario            * Testing y QA automatizado                                │
+  │  * Documentar proyectos tecnicos             * CI/CD e infraestructura                                  │
+  │  * Buscar informacion actual en web          * Generar imagenes, video y audio                          │
+  │  * Coordinar equipos agiles                  * Transcribir reuniones                                    │
+  │                                                                                                         │
+  └─────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+  Escribe tu solicitud y te ayudare a coordinar el equipo de agentes IA.
+
+===============================================================================================================

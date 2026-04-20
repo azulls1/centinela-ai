@@ -1,0 +1,35 @@
+# FastAPI y servidor
+fastapi>=0.111.0
+uvicorn[standard]>=0.30.1
+python-multipart>=0.0.9
+
+# Supabase
+supabase>=2.24.0
+postgrest>=2.24.0
+
+# OpenAI (opcional, para resúmenes)
+openai>=1.35.0
+
+# Utilidades
+pydantic>=2.11.7
+pydantic-settings>=2.2.1
+python-dotenv>=1.0.1
+requests>=2.32.3
+
+# Password hashing
+bcrypt>=4.1.2
+
+# Procesamiento de imágenes (opcional, para análisis offline)
+opencv-python-headless>=4.9.0.80
+numpy>=1.26.4
+Pillow>=10.3.0
+
+# Generación de reportes (opcional)
+reportlab>=4.1.0
+
+# Machine Learning (opcional - instalar según necesidad)
+# Ver requirements_ml.txt para librerías completas de ML
+# ultralytics>=8.0.0  # Descomentar para entrenar YOLO
+# tensorflow>=2.15.0  # Descomentar para TensorFlow
+# torch>=2.1.0  # Descomentar para PyTorch
+

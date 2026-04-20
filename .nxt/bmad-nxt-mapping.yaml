@@ -1,0 +1,343 @@
+# BMAD to NXT Agent Mapping
+# =========================
+# Mapeo entre agentes BMAD v6 Stable (v6.2.0) y agentes NXT
+#
+# Versión: 3.8.0
+# Última actualización: 2025-01-20
+
+# Mapeo de agentes BMAD → NXT
+agent_mapping:
+  # Analysis category
+  analyst: nxt-analyst
+  researcher: nxt-analyst
+
+  # Planning category
+  pm: nxt-pm
+  po: nxt-pm
+
+  # Solutioning category
+  architect: nxt-architect
+  ux: nxt-design  # v3.8.0: UX ahora va a nxt-design
+  tech-lead: nxt-architect
+  test-architect: nxt-qa
+
+  # Implementation category
+  sm: nxt-scrum-master
+  dev: nxt-dev
+  reviewer: nxt-qa
+  qa: nxt-qa
+
+# Mapeo inverso NXT → BMAD (para referencia)
+nxt_to_bmad:
+  nxt-analyst:
+    - analyst
+    - researcher
+  nxt-pm:
+    - pm
+    - po
+  nxt-architect:
+    - architect
+    - tech-lead
+  nxt-design:  # v3.8.0: fusion de ux + uidev
+    - ux
+  nxt-dev:
+    - dev
+  nxt-qa:
+    - reviewer
+    - qa
+    - test-architect
+  nxt-scrum-master:
+    - sm
+
+# Agentes NXT sin equivalente BMAD directo
+nxt_only:
+  # Core extended agents
+  - nxt-orchestrator
+  - nxt-tech-writer
+  - nxt-devops
+  - nxt-cybersec
+  - nxt-design  # v3.8.0: fusion de ux + uidev
+  - nxt-api
+  - nxt-database
+  - nxt-integrations
+  - nxt-flows
+  - nxt-search
+  - nxt-media
+  - nxt-paige
+  # Specialized agents (v3.1.0+)
+  - nxt-infra
+  - nxt-migrator
+  - nxt-performance
+  - nxt-accessibility
+  - nxt-mobile
+  - nxt-data
+  - nxt-aiml
+  - nxt-compliance
+  - nxt-realtime
+  - nxt-localization
+  # Context & Automation agents (v3.3.0)
+  - nxt-context
+  - nxt-changelog
+  - nxt-ralph
+  - nxt-multicontext
+
+# Capacidades extendidas por agente
+capabilities:
+  nxt-analyst:
+    - research
+    - analysis
+    - requirements gathering
+    - stakeholder interviews
+    - market analysis
+
+  nxt-pm:
+    - product management
+    - backlog management
+    - roadmap planning
+    - stakeholder communication
+    - prioritization
+
+  nxt-architect:
+    - system design
+    - architecture decisions
+    - tech stack selection
+    - scalability planning
+    - security architecture
+
+  nxt-design:  # v3.8.0: fusion de nxt-ux + nxt-uidev
+    - user research
+    - wireframing
+    - prototyping
+    - usability testing
+    - design systems
+    - frontend development
+    - ui components
+    - responsive design
+    - accessibility
+    - css/styling
+    - visual design
+
+  nxt-dev:
+    - coding
+    - debugging
+    - refactoring
+    - code review
+    - unit testing
+
+  nxt-qa:
+    - test planning
+    - test execution
+    - bug reporting
+    - regression testing
+    - quality assurance
+
+  nxt-tech-writer:
+    - documentation
+    - api docs
+    - user guides
+    - technical specs
+    - readme files
+
+  nxt-devops:
+    - ci/cd
+    - deployment
+    - infrastructure
+    - monitoring
+    - cloud services
+
+  nxt-cybersec:
+    - security audit
+    - vulnerability assessment
+    - owasp compliance
+    - penetration testing
+    - security policies
+
+  # nxt-uidev: ELIMINADO en v3.8.0 - fusionado en nxt-design
+
+  nxt-api:
+    - backend development
+    - api design
+    - rest/graphql
+    - microservices
+    - server logic
+
+  nxt-database:
+    - database design
+    - sql/nosql
+    - migrations
+    - optimization
+    - data modeling
+
+  nxt-integrations:
+    - third-party apis
+    - webhooks
+    - oauth
+    - data sync
+    - external services
+
+  nxt-flows:
+    - data pipelines
+    - etl
+    - batch processing
+    - event streaming
+    - workflow automation
+
+  nxt-search:
+    - web search
+    - information retrieval
+    - fact checking
+    - research
+    - content discovery
+
+  nxt-media:
+    - image generation
+    - video creation
+    - audio processing
+    - multimedia content
+    - visual assets
+
+  nxt-paige:
+    - project guidance
+    - methodology adherence
+    - best practices
+    - workflow optimization
+    - team coordination
+
+  # Specialized agents (v3.1.0+)
+  nxt-infra:
+    - terraform
+    - kubernetes
+    - helm
+    - cloud platforms
+    - infrastructure as code
+
+  nxt-migrator:
+    - code migration
+    - framework upgrades
+    - legacy modernization
+    - dependency updates
+    - breaking changes
+
+  nxt-performance:
+    - web vitals optimization
+    - profiling
+    - bundle analysis
+    - caching strategies
+    - load testing
+
+  nxt-accessibility:
+    - wcag compliance
+    - aria implementation
+    - screen reader testing
+    - keyboard navigation
+    - color contrast
+
+  nxt-mobile:
+    - react native
+    - flutter
+    - ios development
+    - android development
+    - pwa
+
+  nxt-data:
+    - etl pipelines
+    - airflow
+    - dbt
+    - data warehouse
+    - spark
+
+  nxt-aiml:
+    - machine learning
+    - mlops
+    - llm engineering
+    - rag systems
+    - model training
+
+  nxt-compliance:
+    - gdpr
+    - hipaa
+    - soc2
+    - privacy audit
+    - license compliance
+
+  nxt-realtime:
+    - websockets
+    - server-sent events
+    - streaming
+    - presence systems
+    - pub/sub
+
+  nxt-localization:
+    - i18n
+    - l10n
+    - translation management
+    - rtl support
+    - locale formatting
+
+  # Context & Automation agents (v3.3.0)
+  nxt-context:
+    - session context
+    - adr capture
+    - pattern recording
+    - mcp memory sync
+    - context search
+
+  nxt-changelog:
+    - changelog generation
+    - conventional commits
+    - semantic versioning
+    - release notes
+    - version management
+
+  nxt-ralph:
+    - autonomous development
+    - iterative loops
+    - checkpoint management
+    - auto-recovery
+    - progress documentation
+
+  nxt-multicontext:
+    - context persistence
+    - checkpoint system
+    - state serialization
+    - recovery management
+    - session continuity
+
+# Fases del workflow y agentes responsables
+phase_agents:
+  descubrir:
+    primary: nxt-analyst
+    secondary:
+      - nxt-search
+      - nxt-pm
+
+  definir:
+    primary: nxt-pm
+    secondary:
+      - nxt-analyst
+      - nxt-architect
+
+  disenar:
+    primary: nxt-architect
+    secondary:
+      - nxt-design  # v3.8.0: reemplaza nxt-ux
+      - nxt-cybersec
+
+  planificar:
+    primary: nxt-scrum-master
+    secondary:
+      - nxt-pm
+      - nxt-tech-writer
+
+  construir:
+    primary: nxt-dev
+    secondary:
+      - nxt-design  # v3.8.0: reemplaza nxt-uidev
+      - nxt-api
+      - nxt-database
+
+  verificar:
+    primary: nxt-qa
+    secondary:
+      - nxt-cybersec
+      - nxt-devops

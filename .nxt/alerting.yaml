@@ -1,0 +1,126 @@
+# =============================================================================
+# NXT Framework - Configuracion de Alertas
+# Version: 3.8.0
+# =============================================================================
+
+alerting:
+  habilitado: true
+  evaluacion_intervalo: "on_interaction"  # on_interaction | cron (5min)
+
+  # ---------------------------------------------------------------------------
+  # Canales de notificacion
+  # ---------------------------------------------------------------------------
+  canales:
+    console:
+      habilitado: true
+      formato: "text"          # text | json
+      colores: true
+
+    slack:
+      habilitado: false
+      webhook_url: "${NXT_SLACK_WEBHOOK_URL}"
+      canal: "#nxt-alerts"
+      mencionar_en_critical: "@channel"
+
+    archivo:
+      habilitado: true
+      ruta: ".nxt/alerts.log"
+      max_size_mb: 10
+      rotacion: true
+
+  # ---------------------------------------------------------------------------
+  # Niveles de severidad
+  # ---------------------------------------------------------------------------
+  severidad:
+    info:
+      icono: "[INFO]"
+      canales: ["archivo"]
+      descripcion: "Informativo, no requiere accion"
+
+    warning:
+      icono: "[WARN]"
+      canales: ["console", "archivo"]
+      descripcion: "Requiere atencion, el sistema sigue operando"
+
+    critical:
+      icono: "[CRIT]"
+      canales: ["console", "archivo", "slack"]
+      descripcion: "Requiere accion inmediata"
+
+  # ---------------------------------------------------------------------------
+  # Reglas de alerta
+  # ---------------------------------------------------------------------------
+  reglas:
+    - nombre: "health_score_bajo"
+      condicion: "health.score < 70"
+      severidad: "warning"
+      mensaje: "Health score por debajo del umbral: {score}%"
+      fuente: ".nxt/health.json"
+      cooldown_minutos: 15
+      accion_sugerida: "Ejecutar: python herramientas/nxt_orchestrator_v3.py health"
+
+    - nombre: "health_score_critico"
+      condicion: "health.score < 50"
+      severidad: "critical"
+      mensaje: "Health score critico: {score}%. Sistema degradado."
+      fuente: ".nxt/health.json"
+      cooldown_minutos: 5
+      accion_sugerida: "Restaurar desde backup: bash scripts/backup.sh && ver docs/runbook.md"
+
+    - nombre: "circuit_breaker_abierto"
+      condicion: "circuit_breakers.*.state == 'OPEN'"
+      severidad: "warning"
+      mensaje: "Circuit breaker abierto: {breaker_name}"
+      fuente: ".nxt/health.json"
+      cooldown_minutos: 10
+      accion_sugerida: "Ejecutar: python herramientas/self_healing.py test"
+
+    - nombre: "tasa_fallos_alta"
+      condicion: "health.failure_rate > 0.30"
+      severidad: "critical"
+      mensaje: "Tasa de fallos elevada: {failure_rate}% (umbral: 30%)"
+      fuente: ".nxt/health.json"
+      cooldown_minutos: 5
+      accion_sugerida: "Revisar .nxt/health.json y resetear circuit breakers"
+
+    - nombre: "telemetria_sync_fallida"
+      condicion: "telemetry.last_sync_error != null"
+      severidad: "warning"
+      mensaje: "Sincronizacion de telemetria fallida: {error}"
+      fuente: ".nxt/telemetry.jsonl"
+      cooldown_minutos: 30
+      accion_sugerida: "Ejecutar: python herramientas/nxt_orchestrator_v3.py telemetry supabase-test"
+
+    - nombre: "telemetria_archivo_grande"
+      condicion: "telemetry.file_size_mb > 40"
+      severidad: "info"
+      mensaje: "Archivo de telemetria acercandose al limite: {size}MB/50MB"
+      fuente: ".nxt/telemetry.jsonl"
+      cooldown_minutos: 1440  # 1 dia
+      accion_sugerida: "Ejecutar: python herramientas/nxt_orchestrator_v3.py telemetry prune"
+
+    - nombre: "state_json_corrupto"
+      condicion: "state.json.parse_error == true"
+      severidad: "critical"
+      mensaje: "state.json corrupto o ilegible"
+      fuente: ".nxt/state.json"
+      cooldown_minutos: 0  # Siempre alertar
+      accion_sugerida: "Restaurar desde checkpoint: ver docs/runbook.md seccion 2"
+
+    - nombre: "sin_checkpoints"
+      condicion: "checkpoints.count == 0"
+      severidad: "warning"
+      mensaje: "No hay checkpoints disponibles para recovery"
+      fuente: ".nxt/checkpoints/"
+      cooldown_minutos: 1440
+      accion_sugerida: "Crear checkpoint: /nxt/checkpoint o bash scripts/backup.sh"
+
+  # ---------------------------------------------------------------------------
+  # Escalacion automatica
+  # ---------------------------------------------------------------------------
+  escalacion:
+    - si: "misma alerta critical 3 veces en 1 hora"
+      entonces: "Incluir en resumen de sesion como bloqueante"
+
+    - si: "health_score < 30"
+      entonces: "Forzar modo seguro: solo operaciones de lectura"

@@ -1,0 +1,83 @@
+version: '3.8'
+
+services:
+  api:
+    image: vision-api:latest
+    environment:
+      FRONTEND_URL: ${FRONTEND_URL}
+      SUPABASE_URL: ${SUPABASE_URL}
+      SUPABASE_ANON_KEY: ${SUPABASE_ANON_KEY}
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
+      ADMIN_API_TOKEN: ${ADMIN_API_TOKEN}
+      SESSION_LIMIT_MINUTES: ${SESSION_LIMIT_MINUTES:-45}
+      SESSION_TOKEN_LIMIT: ${SESSION_TOKEN_LIMIT:-15000}
+      SESSION_CAMERA_LIMIT: ${SESSION_CAMERA_LIMIT:-3}
+      SESSION_INACTIVITY_ALERT_MINUTES: ${SESSION_INACTIVITY_ALERT_MINUTES:-5}
+      ADMIN_BANNED_LIMIT_DEFAULT: ${ADMIN_BANNED_LIMIT_DEFAULT:-5}
+      STREAM_GATEWAY_API_URL: ${STREAM_GATEWAY_API_URL:-http://stream-gateway:8081}
+      STREAM_GATEWAY_FFMPEG_PATH: ${STREAM_GATEWAY_FFMPEG_PATH:-ffmpeg}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.vision_api.rule=Host(`apicentinela.iagentek.com.mx`) && PathPrefix(`/api`)
+        - traefik.http.routers.vision_api.entrypoints=websecure
+        - traefik.http.routers.vision_api.tls=true
+        - traefik.http.routers.vision_api.tls.certresolver=letsencryptresolver
+        - traefik.http.services.vision_api.loadbalancer.server.port=8000
+    networks:
+      vision-net:
+        aliases:
+          - vision-api
+
+  stream-gateway:
+    image: vision-stream-gateway:latest
+    environment:
+      STREAM_GATEWAY_STREAMS_DIR: /data/streams
+      STREAM_GATEWAY_PUBLIC_BASE_URL: ${STREAM_GATEWAY_PUBLIC_BASE_URL:-http://localhost:8081}
+      STREAM_GATEWAY_FFMPEG_PATH: ${STREAM_GATEWAY_FFMPEG_PATH:-ffmpeg}
+      STREAM_GATEWAY_API_URL: ${STREAM_GATEWAY_API_URL:-http://stream-gateway:8081}
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.vision_stream.rule=Host(`apicentinela.iagentek.com.mx`) && PathPrefix(`/streams`)
+        - traefik.http.routers.vision_stream.entrypoints=websecure
+        - traefik.http.routers.vision_stream.tls=true
+        - traefik.http.routers.vision_stream.tls.certresolver=letsencryptresolver
+        - traefik.http.services.vision_stream.loadbalancer.server.port=8081
+    volumes:
+      - stream-data:/data/streams
+    networks:
+      vision-net:
+        aliases:
+          - stream-gateway
+
+networks:
+  vision-net:
+    external: true
+    name: iagenteknet
+
+volumes:
+  stream-data:
+    driver: local
+

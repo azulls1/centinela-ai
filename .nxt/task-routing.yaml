@@ -1,0 +1,180 @@
+# NXT Task Routing Table v3.8.0
+# Maps task types to required agents with execution order
+
+task_routing:
+  # Bug fixes
+  bug_fix:
+    description: "Corregir un bug en codigo existente"
+    agents: [nxt-dev, nxt-qa]
+    order: [dev, qa]
+    conditions:
+      - if: "bug involves auth/security"
+        add: nxt-cybersec
+      - if: "bug involves database"
+        add: nxt-database
+
+  # New API endpoint
+  api_endpoint:
+    description: "Crear o modificar endpoint REST/GraphQL"
+    agents: [nxt-api, nxt-database, nxt-qa]
+    order: [database, api, qa]
+    conditions:
+      - if: "endpoint handles auth"
+        add: nxt-cybersec
+      - if: "needs OpenAPI docs"
+        add: nxt-docs
+
+  # New UI feature
+  ui_feature:
+    description: "Implementar componente o pagina de UI"
+    agents: [nxt-design, nxt-dev, nxt-qa]
+    order: [design, dev, qa]
+    conditions:
+      - if: "needs accessibility"
+        add: nxt-accessibility
+
+  # Full feature (frontend + backend + DB)
+  full_feature:
+    description: "Feature completa que toca multiples capas"
+    agents: [nxt-analyst, nxt-architect, nxt-database, nxt-api, nxt-dev, nxt-qa, nxt-docs]
+    order: [analyst, architect, database, api, dev, qa, docs]
+    conditions:
+      - if: "involves auth/security"
+        add: nxt-cybersec
+      - if: "needs design"
+        add: nxt-design
+
+  # Database changes
+  database_change:
+    description: "Cambios de schema, migraciones, optimizacion"
+    agents: [nxt-database, nxt-qa]
+    order: [database, qa]
+
+  # Infrastructure/Deploy
+  infrastructure:
+    description: "CI/CD, Docker, Kubernetes, Terraform"
+    agents: [nxt-devops]
+    order: [devops]
+    conditions:
+      - if: "involves Kubernetes or Terraform"
+        replace: nxt-infra
+
+  # Security audit
+  security_audit:
+    description: "Revision de seguridad, OWASP, vulnerabilidades"
+    agents: [nxt-cybersec, nxt-qa]
+    order: [cybersec, qa]
+
+  # Documentation
+  documentation:
+    description: "Crear o actualizar documentacion"
+    agents: [nxt-tech-writer]
+    order: [docs]
+
+  # Migration/Refactor
+  migration:
+    description: "Migrar codigo, actualizar dependencias, modernizar"
+    agents: [nxt-migrator, nxt-qa]
+    order: [migrator, qa]
+
+  # Adversarial code review
+  edge_case_review:
+    description: "Review adversarial de boundary conditions y edge cases"
+    agents: [nxt-edge-case-hunter]
+    order: [edge-case-hunter]
+    conditions:
+      - if: "security-related code"
+        add: nxt-cybersec
+      - if: "performance implications"
+        add: nxt-performance
+
+  # Performance optimization
+  performance:
+    description: "Optimizar rendimiento, Core Web Vitals"
+    agents: [nxt-performance, nxt-qa]
+    order: [performance, qa]
+
+  # Mobile app development
+  mobile_app_new:
+    description: "Crear app movil nueva desde cero"
+    agents: [nxt-design, nxt-mobile, nxt-api, nxt-qa]
+    order: [design, mobile, api, qa]
+    conditions:
+      - if: "needs backend"
+        add: nxt-database
+      - if: "needs auth"
+        add: nxt-cybersec
+
+  mobile_feature:
+    description: "Agregar feature a app movil existente"
+    agents: [nxt-mobile, nxt-qa]
+    order: [mobile, qa]
+    conditions:
+      - if: "needs API changes"
+        add: nxt-api
+      - if: "needs UI design"
+        add: nxt-design
+
+  mobile_release:
+    description: "Preparar y publicar app en stores"
+    agents: [nxt-mobile, nxt-qa, nxt-devops]
+    order: [qa, mobile, devops]
+
+# Agent boundary definitions
+boundaries:
+  nxt-dev:
+    owns: "Feature development, general coding, frontend components"
+    does_not_own: "API endpoint design (-> nxt-api), DB schema (-> nxt-database)"
+    escalate_to: "nxt-architect for architectural decisions"
+
+  nxt-api:
+    owns: "REST/GraphQL endpoint design, OpenAPI specs, API versioning"
+    does_not_own: "Frontend code (-> nxt-dev), DB migrations (-> nxt-database)"
+    escalate_to: "nxt-architect for API architecture decisions"
+
+  nxt-database:
+    owns: "Schema design, migrations, query optimization, data models"
+    does_not_own: "API code (-> nxt-api), feature logic (-> nxt-dev)"
+    escalate_to: "nxt-architect for data architecture decisions"
+
+  nxt-devops:
+    owns: "CI/CD pipelines, Docker, GitHub Actions, deploy scripts"
+    does_not_own: "Terraform/K8s/IaC (-> nxt-infra), app monitoring (-> nxt-performance)"
+
+  nxt-infra:
+    owns: "Terraform, Kubernetes, Helm, cloud provisioning"
+    does_not_own: "CI/CD pipelines (-> nxt-devops), app code (-> nxt-dev)"
+
+  nxt-qa:
+    owns: "Functional testing, regression, test automation"
+    does_not_own: "Security testing (-> nxt-cybersec), performance testing (-> nxt-performance)"
+
+  nxt-cybersec:
+    owns: "Security audit, OWASP, vulnerability detection, secrets management"
+    does_not_own: "Functional testing (-> nxt-qa), infrastructure security (-> nxt-infra)"
+
+  nxt-mobile:
+    owns: "Mobile app development (RN/Flutter/Native), navigation, offline-first, push notifications, deep links, app store submission"
+    does_not_own: "UX research/wireframes (-> nxt-design), backend APIs (-> nxt-api), general CI/CD (-> nxt-devops)"
+    escalate_to: "nxt-design for UX/UI design decisions, nxt-cybersec for mobile security audit"
+
+  nxt-edge-case-hunter:
+    owns: "Adversarial review of branching paths and boundary conditions"
+    does_not_own: "Functional testing (→ nxt-qa), security audit (→ nxt-cybersec)"
+    escalate_to: "nxt-cybersec for security vulnerabilities found during review"
+
+  nxt-scorer:
+    owns: "Project health evaluation, score cards, metrics collection across 10 areas, trend analysis"
+    does_not_own: "Fixing issues (→ delegates to specialized agents), implementation (→ nxt-dev)"
+    escalate_to: "nxt-orchestrator for critical scores (<5.0), specialized agents for area-specific remediation"
+
+# ------- Task type: health_evaluation -------
+health_evaluation:
+  agents: [nxt-scorer]
+  conditions:
+    - if: "specific area requested"
+      then: "evaluate only that area"
+    - if: "score < 5 in any area"
+      then: "recommend specialized agent for remediation"
+    - if: "global score < 5"
+      then: "escalate to nxt-orchestrator for remediation plan"

@@ -1,0 +1,130 @@
+# Skill to MCP Server Mapping
+# ===========================
+# Define qué servidores MCP son necesarios para cada skill
+#
+# Versión: 3.8.0
+# Última actualización: 2025-01-20
+
+skill_mcp:
+  # ============================================
+  # Skills de Documentos
+  # ============================================
+  docx:
+    - filesystem
+  pdf:
+    - filesystem
+  pptx:
+    - filesystem
+  xlsx:
+    - filesystem
+  markdown-advanced:
+    - filesystem
+  api-docs:
+    - filesystem
+    - github
+
+  # ============================================
+  # Skills de Desarrollo
+  # ============================================
+  testing:
+    - filesystem
+  code-review:
+    - github
+    - filesystem
+  security:
+    - github
+  diagrams:
+    - filesystem
+  code-quality:
+    - filesystem
+    - github
+  refactoring:
+    - filesystem
+  migrations:
+    - filesystem
+    - postgres
+  monitoring:
+    - filesystem
+  containers:
+    - filesystem
+
+  # v3.3.0 Skills
+  changelog:
+    - filesystem
+    - github
+  context-persistence:
+    - filesystem
+    - memory
+
+  # ============================================
+  # Skills de Integraciones
+  # ============================================
+  gemini:
+    []  # No requiere MCP, usa API directa
+  openai:
+    []  # No requiere MCP, usa API directa
+  mcp:
+    - memory
+  webhooks:
+    - fetch
+
+# ============================================
+# Mapeo inverso: MCP Server → Skills soportados
+# ============================================
+mcp_skills:
+  github:
+    - code-review
+    - security
+    - api-docs
+    - code-quality
+    - changelog  # v3.3.0
+  filesystem:
+    - docx
+    - pdf
+    - pptx
+    - xlsx
+    - markdown-advanced
+    - api-docs
+    - testing
+    - code-review
+    - diagrams
+    - code-quality
+    - refactoring
+    - migrations
+    - monitoring
+    - containers
+    - changelog  # v3.3.0
+    - context-persistence  # v3.3.0
+  memory:
+    - mcp
+    - context-persistence  # v3.3.0
+  postgres:
+    - migrations
+  fetch:
+    - webhooks
+
+# ============================================
+# Configuración de activación automática
+# ============================================
+auto_enable:
+  # Skills que activan MCP automáticamente
+  enabled: true
+
+  # Prioridad de servidores (si hay conflicto)
+  priority:
+    - github
+    - filesystem
+    - memory
+    - postgres
+    - fetch
+
+# ============================================
+# Requisitos de variables de entorno
+# ============================================
+env_requirements:
+  github:
+    - GITHUB_TOKEN
+  postgres:
+    - DATABASE_URL
+  slack:
+    - SLACK_TOKEN

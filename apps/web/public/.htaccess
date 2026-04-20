@@ -1,0 +1,30 @@
+RewriteEngine On
+RewriteBase /
+
+# Permitir que los archivos y directorios existentes se sirvan normalmente
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Redirigir el resto de rutas de la SPA hacia index.html
+RewriteRule ^ index.html [L]
+
+# Encabezados de seguridad básicos
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "same-origin"
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+</IfModule>
+
+# Cachear agresivamente los assets fingerprinted (js/css) y recursos estáticos
+<FilesMatch "\.(js|css|png|jpg|jpeg|gif|svg|webp|ico)$">
+  <IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 year"
+  </IfModule>
+  <IfModule mod_headers.c>
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </IfModule>
+</FilesMatch>
+

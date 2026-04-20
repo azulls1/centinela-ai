@@ -1,0 +1,70 @@
+# NXT MultiContext Configuration
+# ================================
+# Configuracion del sistema de persistencia de contexto
+
+multicontext:
+  # Habilitado
+  enabled: true
+
+  # Checkpoints automaticos
+  checkpoint:
+    # Intervalo en segundos (5 minutos)
+    interval: 300
+
+    # Maximo de checkpoints a mantener
+    max_count: 20
+
+    # Triggers automaticos
+    triggers:
+      on_task_start: true
+      on_agent_switch: true
+      on_step_complete: true
+      on_decision: true
+      on_file_create: false  # muy frecuente
+
+  # Alertas de contexto
+  context_alerts:
+    # Porcentaje de uso para warning
+    warning_threshold: 0.6  # 60%
+
+    # Porcentaje de uso para critical
+    critical_threshold: 0.8  # 80%
+
+    # Crear resumen automatico en critical
+    auto_summary_on_critical: true
+
+  # Recovery
+  recovery:
+    # Intentar recovery automatico
+    auto_recovery: true
+
+    # Preguntar antes de recuperar
+    prompt_before_recovery: true
+
+    # Validar estado antes de cargar
+    validate_state: true
+
+  # Persistencia
+  storage:
+    # Guardar en archivos locales
+    local: true
+
+    # Sincronizar con MCP Memory (si disponible)
+    mcp_memory: true
+
+    # Compresion de checkpoints
+    compression: false
+
+  # Resumen
+  summary:
+    # Formato del resumen
+    format: "structured"  # "structured" o "narrative"
+
+    # Incluir instrucciones de recovery
+    include_recovery_instructions: true
+
+    # Maximo de decisiones a incluir
+    max_decisions: 10
+
+    # Maximo de archivos a listar
+    max_files: 20

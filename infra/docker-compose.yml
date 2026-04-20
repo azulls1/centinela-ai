@@ -1,0 +1,74 @@
+services:
+  api:
+    build:
+      context: ../apps/api
+      dockerfile: Dockerfile
+    container_name: vision-api
+    ports:
+      - "9301:8000"
+    env_file:
+      - ../apps/api/.env
+    environment:
+      - FRONTEND_URL=http://localhost:9300
+      - STREAM_GATEWAY_URL=http://stream-gateway:8081
+    volumes:
+      - ../apps/api:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - vision-network
+    restart: unless-stopped
+    depends_on:
+      - stream-gateway
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  web:
+    build:
+      context: ../apps/web
+      dockerfile: Dockerfile.dev
+    container_name: vision-web
+    ports:
+      - "9300:9300"
+    env_file:
+      - ../apps/web/.env
+    volumes:
+      - ../apps/web:/app
+      - web-node-modules:/app/node_modules
+    networks:
+      - vision-network
+    restart: unless-stopped
+    depends_on:
+      - api
+
+  stream-gateway:
+    build:
+      context: ../apps/stream-gateway
+      dockerfile: Dockerfile
+    container_name: vision-stream-gateway
+    ports:
+      - "9302:8081"
+    environment:
+      - STREAM_GATEWAY_PUBLIC_BASE_URL=http://localhost:9302
+    volumes:
+      - ../apps/stream-gateway:/app
+      - stream-data:/app/streams
+    command: uvicorn main:app --host 0.0.0.0 --port 8081 --reload
+    networks:
+      - vision-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+networks:
+  vision-network:
+    driver: bridge
+
+volumes:
+  stream-data:
+  web-node-modules:

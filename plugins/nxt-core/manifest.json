@@ -1,0 +1,395 @@
+{
+  "$schema": "https://claude.ai/plugins/manifest.schema.json",
+  "name": "nxt-core",
+  "version": "3.8.0",
+  "description": "NXT AI Development - Core Plugin con 33 agentes, 28 skills, 43 comandos, telemetria Supabase, mobile team completo",
+  "author": "NXT Grupo",
+  "homepage": "https://github.com/nxt-grupo/nxt-ai-framework",
+  "license": "MIT",
+
+  "commands": {
+    "ralph-loop": {
+      "file": "../../.claude/commands/ralph-loop.md",
+      "description": "Desarrollo autonomo iterativo (Ralph Loop)"
+    },
+    "code-review": {
+      "file": "../../.claude/commands/code-review.md",
+      "description": "Code review automatizado con 5 agentes"
+    },
+    "pr-review": {
+      "file": "../../.claude/commands/pr-review.md",
+      "description": "PR review toolkit con 6 agentes"
+    },
+    "feature-dev": {
+      "file": "../../.claude/commands/feature-dev.md",
+      "description": "Desarrollo guiado de features"
+    },
+    "hookify": {
+      "file": "../../.claude/commands/hookify.md",
+      "description": "Crear hooks personalizados del proyecto"
+    },
+    "security-check": {
+      "file": "../../.claude/commands/security-check.md",
+      "description": "Monitoreo de seguridad automatico"
+    },
+    "commit": {
+      "file": "../../.claude/commands/commit.md",
+      "description": "Automatizacion de commits Git"
+    },
+    "simplify": {
+      "file": "../../.claude/commands/simplify.md",
+      "description": "Simplificacion de codigo"
+    },
+    "frontend-design": {
+      "file": "../../.claude/commands/frontend-design.md",
+      "description": "Implementacion UI/UX de alta calidad"
+    },
+    "plugin-dev": {
+      "file": "../../.claude/commands/plugin-dev.md",
+      "description": "Desarrollo de plugins Claude Code"
+    },
+    "agent-sdk": {
+      "file": "../../.claude/commands/agent-sdk.md",
+      "description": "Desarrollo con Claude Agent SDK"
+    },
+    "learning-mode": {
+      "file": "../../.claude/commands/learning-mode.md",
+      "description": "Modo educativo interactivo"
+    },
+    "explain-mode": {
+      "file": "../../.claude/commands/explain-mode.md",
+      "description": "Modo explicativo con insights"
+    },
+    "claude-migration": {
+      "file": "../../.claude/commands/claude-migration.md",
+      "description": "Migracion de modelos Claude"
+    },
+    "nxt/init": {
+      "file": "../../.claude/commands/nxt/init.md",
+      "description": "Inicializar proyecto NXT"
+    },
+    "nxt/orchestrator": {
+      "file": "../../.claude/commands/nxt/orchestrator.md",
+      "description": "Activar orquestador principal"
+    },
+    "nxt/analyst": {
+      "file": "../../.claude/commands/nxt/analyst.md",
+      "description": "Agente analista"
+    },
+    "nxt/pm": {
+      "file": "../../.claude/commands/nxt/pm.md",
+      "description": "Product Manager"
+    },
+    "nxt/architect": {
+      "file": "../../.claude/commands/nxt/architect.md",
+      "description": "Arquitecto de software"
+    },
+    "nxt/dev": {
+      "file": "../../.claude/commands/nxt/dev.md",
+      "description": "Desarrollador"
+    },
+    "nxt/qa": {
+      "file": "../../.claude/commands/nxt/qa.md",
+      "description": "QA Engineer"
+    },
+    "nxt/docs": {
+      "file": "../../.claude/commands/nxt/docs.md",
+      "description": "Tech Writer"
+    },
+    "nxt/scrum": {
+      "file": "../../.claude/commands/nxt/scrum.md",
+      "description": "Scrum Master"
+    },
+    "nxt/devops": {
+      "file": "../../.claude/commands/nxt/devops.md",
+      "description": "DevOps Engineer (CI/CD, Docker)"
+    },
+    "nxt/infra": {
+      "file": "../../.claude/commands/nxt/infra.md",
+      "description": "Infrastructure (Terraform, K8s, Cloud)"
+    },
+    "nxt/search": {
+      "file": "../../.claude/commands/nxt/search.md",
+      "description": "Busquedas web (Gemini)"
+    },
+    "nxt/media": {
+      "file": "../../.claude/commands/nxt/media.md",
+      "description": "Multimedia (Gemini)"
+    },
+    "nxt/cybersec": {
+      "file": "../../.claude/commands/nxt/cybersec.md",
+      "description": "Seguridad y auditoria OWASP"
+    },
+    "nxt/design": {
+      "file": "../../.claude/commands/nxt/design.md",
+      "description": "Product Designer (UX Research + UI Design + Frontend)"
+    },
+    "nxt/api": {
+      "file": "../../.claude/commands/nxt/api.md",
+      "description": "Backend y APIs (REST, GraphQL)"
+    },
+    "nxt/database": {
+      "file": "../../.claude/commands/nxt/database.md",
+      "description": "Base de datos (PostgreSQL, MongoDB)"
+    },
+    "nxt/integrations": {
+      "file": "../../.claude/commands/nxt/integrations.md",
+      "description": "Integraciones externas"
+    },
+    "nxt/flows": {
+      "file": "../../.claude/commands/nxt/flows.md",
+      "description": "Flujos de datos y jobs (app-level)"
+    },
+    "nxt/data": {
+      "file": "../../.claude/commands/nxt/data.md",
+      "description": "Data Engineering (ETL, Airflow)"
+    },
+    "nxt/migrator": {
+      "file": "../../.claude/commands/nxt/migrator.md",
+      "description": "Migraciones de codigo"
+    },
+    "nxt/performance": {
+      "file": "../../.claude/commands/nxt/performance.md",
+      "description": "Optimizacion y profiling"
+    },
+    "nxt/accessibility": {
+      "file": "../../.claude/commands/nxt/accessibility.md",
+      "description": "Accesibilidad WCAG"
+    },
+    "nxt/mobile": {
+      "file": "../../.claude/commands/nxt/mobile.md",
+      "description": "Mobile (React Native, Flutter)"
+    },
+    "nxt/aiml": {
+      "file": "../../.claude/commands/nxt/aiml.md",
+      "description": "AI/ML y MLOps"
+    },
+    "nxt/compliance": {
+      "file": "../../.claude/commands/nxt/compliance.md",
+      "description": "Compliance (GDPR, HIPAA)"
+    },
+    "nxt/realtime": {
+      "file": "../../.claude/commands/nxt/realtime.md",
+      "description": "Real-time (WebSockets, SSE)"
+    },
+    "nxt/localization": {
+      "file": "../../.claude/commands/nxt/localization.md",
+      "description": "Localizacion (i18n, l10n)"
+    },
+    "nxt/context": {
+      "file": "../../.claude/commands/nxt/context.md",
+      "description": "Gestion de contexto entre sesiones"
+    },
+    "nxt/changelog": {
+      "file": "../../.claude/commands/nxt/changelog.md",
+      "description": "Generacion automatica de changelogs"
+    },
+    "nxt/ralph": {
+      "file": "../../.claude/commands/nxt/ralph.md",
+      "description": "Desarrollo autonomo iterativo (Ralph Loop)"
+    },
+    "nxt/multicontext": {
+      "file": "../../.claude/commands/nxt/multicontext.md",
+      "description": "Gestion de contexto persistente"
+    },
+    "nxt/checkpoint": {
+      "file": "../../.claude/commands/nxt/checkpoint.md",
+      "description": "Guardar estado actual en checkpoint"
+    },
+    "nxt/resume": {
+      "file": "../../.claude/commands/nxt/resume.md",
+      "description": "Recuperar estado desde checkpoint"
+    },
+    "nxt/paige": {
+      "file": "../../.claude/commands/nxt/paige.md",
+      "description": "Guia de documentacion y onboarding"
+    },
+    "nxt/help": {
+      "file": "../../.claude/commands/nxt/help.md",
+      "description": "Ayuda del framework NXT"
+    },
+    "nxt/status": {
+      "file": "../../.claude/commands/nxt/status.md",
+      "description": "Estado actual del proyecto"
+    },
+    "nxt/app-store": {
+      "file": "../../.claude/commands/nxt/app-store.md",
+      "description": "App Store Optimization y publicacion"
+    },
+    "nxt/edge-case-hunter": {
+      "file": "../../.claude/commands/nxt/edge-case-hunter.md",
+      "description": "Review adversarial de boundary conditions"
+    },
+    "nxt/mobile-ci": {
+      "file": "../../.claude/commands/nxt/mobile-ci.md",
+      "description": "CI/CD movil (Fastlane, EAS, Codemagic)"
+    },
+    "nxt/mobile-perf": {
+      "file": "../../.claude/commands/nxt/mobile-perf.md",
+      "description": "Performance movil (startup, memory, 60fps)"
+    },
+    "nxt/mobile-test": {
+      "file": "../../.claude/commands/nxt/mobile-test.md",
+      "description": "Testing E2E movil (Detox, Maestro)"
+    }
+  },
+
+  "agents": [
+    "agentes/nxt-orchestrator.md",
+    "agentes/nxt-analyst.md",
+    "agentes/nxt-pm.md",
+    "agentes/nxt-architect.md",
+    "agentes/nxt-design.md",
+    "agentes/nxt-dev.md",
+    "agentes/nxt-qa.md",
+    "agentes/nxt-tech-writer.md",
+    "agentes/nxt-scrum-master.md",
+    "agentes/nxt-devops.md",
+    "agentes/nxt-infra.md",
+    "agentes/nxt-search.md",
+    "agentes/nxt-media.md",
+    "agentes/nxt-cybersec.md",
+    "agentes/nxt-api.md",
+    "agentes/nxt-database.md",
+    "agentes/nxt-integrations.md",
+    "agentes/nxt-flows.md",
+    "agentes/nxt-data.md",
+    "agentes/nxt-migrator.md",
+    "agentes/nxt-performance.md",
+    "agentes/nxt-accessibility.md",
+    "agentes/nxt-mobile.md",
+    "agentes/nxt-aiml.md",
+    "agentes/nxt-compliance.md",
+    "agentes/nxt-realtime.md",
+    "agentes/nxt-localization.md",
+    "agentes/nxt-paige.md",
+    "agentes/nxt-context.md",
+    "agentes/nxt-changelog.md",
+    "agentes/nxt-ralph.md",
+    "agentes/nxt-multicontext.md",
+    "agentes/nxt-edge-case-hunter.md"
+  ],
+
+  "skills": [
+    "skills/desarrollo/SKILL-code-quality.md",
+    "skills/desarrollo/SKILL-testing.md",
+    "skills/desarrollo/SKILL-diagrams.md",
+    "skills/desarrollo/SKILL-migrations.md",
+    "skills/desarrollo/SKILL-monitoring.md",
+    "skills/desarrollo/SKILL-containers.md",
+    "skills/documentos/SKILL-docx.md",
+    "skills/documentos/SKILL-xlsx.md",
+    "skills/documentos/SKILL-pptx.md",
+    "skills/documentos/SKILL-pdf.md",
+    "skills/documentos/SKILL-api-docs.md",
+    "skills/documentos/SKILL-markdown-advanced.md",
+    "skills/integraciones/SKILL-mcp.md",
+    "skills/integraciones/SKILL-webhooks.md",
+    "skills/integraciones/SKILL-gemini.md",
+    "skills/integraciones/SKILL-openai.md",
+    "skills/desarrollo/SKILL-changelog.md",
+    "skills/desarrollo/SKILL-context-persistence.md",
+    "skills/desarrollo/SKILL-security.md",
+    "skills/desarrollo/SKILL-root-cause-analysis.md",
+    "skills/desarrollo/SKILL-implementation-readiness.md",
+    "skills/desarrollo/SKILL-mobile-testing.md",
+    "skills/desarrollo/SKILL-mobile-ci.md",
+    "skills/desarrollo/SKILL-mobile-performance.md",
+    "skills/desarrollo/SKILL-app-store.md",
+    "skills/desarrollo/SKILL-mobile-security.md",
+    "skills/desarrollo/SKILL-mobile-analytics.md",
+    "skills/desarrollo/SKILL-mobile-ux.md"
+  ],
+
+  "mcpServers": {
+    "github": {
+      "required": false,
+      "description": "GitHub integration for repos, PRs, issues"
+    },
+    "filesystem": {
+      "required": false,
+      "description": "Enhanced filesystem access"
+    },
+    "memory": {
+      "required": false,
+      "description": "Persistent memory across sessions"
+    },
+    "postgres": {
+      "required": false,
+      "description": "PostgreSQL database connection"
+    },
+    "fetch": {
+      "required": false,
+      "description": "HTTP requests for external APIs"
+    }
+  },
+
+  "hooks": {
+    "on_init": "hooks/on-init.py",
+    "on_agent_switch": "hooks/on-agent-switch.py",
+    "on_step_complete": "hooks/on-step-complete.py",
+    "on_workflow_complete": "hooks/on-workflow-complete.py"
+  },
+
+  "features": {
+    "ralph_loop": {
+      "enabled": true,
+      "max_iterations": 50,
+      "description": "Autonomous iterative development loops"
+    },
+    "code_review": {
+      "enabled": true,
+      "agents": 5,
+      "description": "Automated code review with parallel agents"
+    },
+    "pr_review": {
+      "enabled": true,
+      "agents": 6,
+      "description": "Comprehensive PR review toolkit"
+    },
+    "feature_dev": {
+      "enabled": true,
+      "phases": 5,
+      "description": "Guided feature development workflow"
+    },
+    "hookify": {
+      "enabled": true,
+      "description": "Custom hooks for project-specific guards"
+    },
+    "security_guidance": {
+      "enabled": true,
+      "auto_trigger": true,
+      "description": "Automatic security vulnerability monitoring"
+    },
+    "learning_mode": {
+      "enabled": true,
+      "description": "Interactive educational development mode"
+    },
+    "context_management": {
+      "enabled": true,
+      "sync_with_mcp": true,
+      "description": "Context management between sessions"
+    },
+    "changelog_generation": {
+      "enabled": true,
+      "format": "keep-a-changelog",
+      "description": "Automatic changelog generation from commits"
+    }
+  },
+
+  "requirements": {
+    "claude_code": ">=1.0.0",
+    "python": ">=3.10",
+    "node": ">=20.0.0"
+  },
+
+  "keywords": [
+    "ai-development",
+    "multi-agent",
+    "bmad",
+    "agile",
+    "claude-code",
+    "ralph-loop",
+    "autonomous-development"
+  ]
+}

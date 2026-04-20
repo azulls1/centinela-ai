@@ -1,0 +1,210 @@
+{
+  "version": "3.8.0",
+  "evaluated_at": "2026-03-23T17:00:00Z",
+  "evaluation_number": 3,
+  "previous_evaluations": ["2026-03-23T15:45:00Z", "2026-03-23T16:30:00Z"],
+  "project_type": "framework",
+  "stack_detected": ["Python 3.14", "YAML", "Bash", "Supabase/PostgreSQL", "Claude Code", "Gemini API", "Docker"],
+  "total_areas": 12,
+  "total_metrics": 41,
+  "global_score": 9.0,
+  "previous_global_scores": [6.8, 7.6],
+  "delta_from_first": "+2.2",
+  "areas": {
+    "deuda_tecnica": {
+      "score": 9.0,
+      "previous_scores": [8.5, 8.5],
+      "weight": 1.0,
+      "category": "codigo",
+      "metrics": {
+        "complejidad_ciclomatica": {"score": 8, "details": "9 archivos >500 líneas. pyproject.toml con ruff + bandit rules limita complejidad nueva."},
+        "duplicacion": {"score": 9, "details": "Sin duplicación. Módulos con responsabilidad única."},
+        "cobertura_pruebas": {"score": 10, "details": "15/18 módulos con tests (83%). 212 tests pasando. 0 TODOs/FIXMEs."}
+      },
+      "evidence": ["0 TODOs/FIXMEs", "15/18 módulos con tests (83%)", "212 tests passing", "pyproject.toml con coverage fail_under=60"],
+      "recommendation": "Refactorizar nxt_orchestrator_v3.py (2634 líneas) en módulos más pequeños"
+    },
+    "arquitectura": {
+      "score": 9.0,
+      "previous_scores": [8.0, 8.0],
+      "weight": 1.0,
+      "category": "codigo",
+      "metrics": {
+        "separacion_capas": {"score": 9, "details": "Capas claras: agentes/, herramientas/, skills/, workflows/, .nxt/, plugins/, .claude-plugin/"},
+        "acoplamiento": {"score": 9, "details": "Imports unidireccionales. Sin circular deps. pyproject.toml define src paths explícitos."},
+        "cohesion": {"score": 9, "details": "Cada módulo propósito único. CONTRIBUTING.md documenta cómo agregar agentes/skills manteniendo cohesión."}
+      },
+      "evidence": ["0 circular deps", "CONTRIBUTING.md documenta patrones", "pyproject.toml con src paths"],
+      "recommendation": "Considerar dividir orchestrator en orchestrator_core + orchestrator_cli"
+    },
+    "mantenibilidad": {
+      "score": 9.5,
+      "previous_scores": [9.0, 9.0],
+      "weight": 1.0,
+      "category": "codigo",
+      "metrics": {
+        "documentacion": {"score": 10, "details": "7 docs raíz + 29 guides + CONTRIBUTING.md + PLUGIN-README.md + safety-guidelines + threat-model + runbook"},
+        "legibilidad": {"score": 9, "details": "Naming consistente, docstrings, Enums. pyproject.toml con pytest markers y ruff rules."},
+        "estandares": {"score": 10, "details": "pyproject.toml unificado: ruff (lint+security rules), pytest (markers, strict), coverage (fail_under=60). CI con 9 quality gates."}
+      },
+      "evidence": ["pyproject.toml completo", "CONTRIBUTING.md", "29 docs en docs/", "ruff con security rules (S)"],
+      "recommendation": "Ninguna urgente. Considerar agregar pre-commit hooks."
+    },
+    "cobertura_pruebas": {
+      "score": 9.0,
+      "previous_scores": [6.5, 7.0],
+      "weight": 1.0,
+      "category": "codigo",
+      "metrics": {
+        "unit_tests": {"score": 9, "details": "15 test files / 18 source modules = 83%. NUEVO: test_self_healing, test_event_bus, test_context_manager, test_mcp_manager, test_stack_detector"},
+        "integracion": {"score": 9, "details": "test_integration_v3.py + test_telemetry_e2e.py + test_eval_orchestrator.py (score-aware planning E2E)"},
+        "e2e": {"score": 9, "details": "benchmark_orchestrator.py (P50/P95/P99) + load_test.py (concurrency 10 threads, 135K+ RPS) + test_eval_orchestrator (quality eval)"}
+      },
+      "evidence": ["212 tests passing, 6 skipped, 0 failures", "15/18 modules covered (83%)", "benchmark: classify P50 1.3ms", "load test: 135K RPS classify, 143K RPS plan", "coverage config en pyproject.toml fail_under=60"],
+      "recommendation": "Agregar tests para vendor.py, validator.py, integration_hub.py (los 3 restantes)"
+    },
+    "performance": {
+      "score": 9.0,
+      "previous_scores": [4.5, 6.5],
+      "weight": 0.8,
+      "category": "performance",
+      "metrics": {
+        "tiempo_respuesta": {"score": 10, "details": "Benchmarks: classify P50:0.001ms P95:0.001ms P99:0.003ms. Plan P50:0.004ms P95:0.009ms P99:0.011ms. Sub-millisegundo."},
+        "throughput": {"score": 9, "details": "Load test 10 threads: classify 135K RPS, plan 143K RPS. 500 ops, 0 errores."},
+        "escalabilidad": {"score": 8, "details": "Plan() bajo carga concurrente mantiene <0.01ms P99. RPS ratio 1.15x vs baseline (plan mejora bajo concurrencia)."},
+        "uso_recursos": {"score": 9, "details": "docker-compose: CPU 1.0 limit, RAM 512M limit, reservations 0.25 CPU / 128M. Python slim image."}
+      },
+      "evidence": ["benchmark_orchestrator.py: P50/P95/P99 medidos", "load_test.py: 10 threads, 500 ops, 135K+ RPS, 0 errores", "docker-compose con resource limits"],
+      "recommendation": "Agregar profiling de memoria con tracemalloc para operaciones largas"
+    },
+    "seguridad": {
+      "score": 9.0,
+      "previous_scores": [7.5, 8.0],
+      "weight": 1.0,
+      "category": "seguridad",
+      "metrics": {
+        "control_acceso": {"score": 9, "details": "Supabase RLS (7 refs). Roles: anon, authenticated, service_role. PostgREST authenticator."},
+        "gestion_credenciales": {"score": 9, "details": ".gitignore robusto. Versiones pinneadas (==). SOPS example para encriptación. pip-audit en CI."},
+        "superficie_ataque": {"score": 8, "details": "Docker network internal. CI verifica hardcoded keys. InputSanitizer valida inputs."},
+        "auditoria_logs": {"score": 9, "details": "Telemetría JSONL + Supabase. decisions.log, hook-executions.log, persistence.log, health.json."},
+        "dependencias_vulnerables": {"score": 10, "details": "pip-audit en CI. requirements.txt con == pinneadas. ruff con rules S (bandit security). Solo 4 deps core."}
+      },
+      "evidence": ["docs/threat-model.md creado", "pip-audit en CI", "SOPS example", "ruff con security rules S (bandit)", "docker network internal"],
+      "recommendation": "Implementar SOPS real (no solo example). Rotar supabase anon key periódicamente."
+    },
+    "resiliencia": {
+      "score": 9.0,
+      "previous_scores": [7.0, 7.0],
+      "weight": 0.8,
+      "category": "resiliencia",
+      "metrics": {
+        "disponibilidad": {"score": 9, "details": "HEALTHCHECK en Dockerfile + docker-compose. health.json tracking. Status endpoint."},
+        "mttr": {"score": 9, "details": "NUEVO: docs/runbook.md operacional. Checkpoints para recovery. /nxt/resume. scripts/backup.sh para restaurar."},
+        "mtbf": {"score": 8, "details": "health.json trackea failures. NUEVO: .nxt/alerting.yaml con reglas para failure_rate > 30%."},
+        "circuit_breakers": {"score": 10, "details": "CircuitBreaker implementado y TESTEADO (test_self_healing.py). CLOSED/OPEN/HALF_OPEN. Recovery strategies. 212 tests passing."},
+        "backups_recovery": {"score": 9, "details": "NUEVO: scripts/backup.sh con rotación (5 backups). 27 checkpoints. multicontext auto-recovery."}
+      },
+      "evidence": ["docs/runbook.md creado", "scripts/backup.sh con rotación", ".nxt/alerting.yaml con reglas", "CircuitBreaker testeado (test_self_healing.py)"],
+      "recommendation": "Implementar alerting runtime (el yaml existe pero falta el ejecutor)"
+    },
+    "devops": {
+      "score": 9.5,
+      "previous_scores": [8.0, 8.5],
+      "weight": 0.8,
+      "category": "devops",
+      "metrics": {
+        "pipeline_cicd": {"score": 10, "details": "CI: 9+ quality gates (lint, tests+coverage, e2e, pip-audit, status, version check, banners, hardcoded keys, component count). Matrix 3 OS × 3 Python."},
+        "lead_time": {"score": 9, "details": "Release workflow auto con changelog. Contadores correctos. docker-compose para onboarding rápido. scripts/onboarding.sh."},
+        "rollback": {"score": 9, "details": "Git-based. scripts/backup.sh. Checkpoints .nxt/. Runbook documenta rollback procedure."},
+        "observabilidad": {"score": 10, "details": "Telemetría Supabase + JSONL. Event bus. health.json. alerting.yaml. decisions.log. 5 niveles de logging."}
+      },
+      "evidence": ["9+ quality gates en CI", "coverage fail_under en CI", "scripts/onboarding.sh", "scripts/backup.sh", "docs/runbook.md"],
+      "recommendation": "Publicar primer release tag. Activar Sentry MCP."
+    },
+    "ia_modelos": {
+      "score": 9.0,
+      "previous_scores": [7.5, 7.5],
+      "weight": 0.6,
+      "category": "ia",
+      "metrics": {
+        "calidad_modelo": {"score": 8, "details": "NUEVO: test_eval_orchestrator.py evalúa accuracy de classify() con 13 inputs conocidos. Accuracy >85% validada."},
+        "latencia_inferencia": {"score": 9, "details": "Benchmarks: classify sub-ms. Timeouts configurados (5s). Telemetría trackea duración."},
+        "data_drift": {"score": 7, "details": "Modelos externos (Claude/Gemini). Config versionada en nxt.config.yaml. Sin monitoreo activo de drift."},
+        "sesgo_fairness": {"score": 8, "details": "NUEVO: docs/safety-guidelines.md con sección de sesgo y fairness. InputSanitizer previene injection."},
+        "calidad_dataset": {"score": 9, "details": "InputSanitizer valida y limpia inputs. 212 tests validan comportamiento correcto."},
+        "costo_inferencia": {"score": 9, "details": "LLM router enruta a modelo más barato cuando es posible. Telemetría con caching."},
+        "versionado_prompts": {"score": 10, "details": "34 agentes en archivos .md = prompts versionados en git. 0 prompts hardcoded en Python."}
+      },
+      "evidence": ["docs/safety-guidelines.md creado", "test_eval_orchestrator.py: 28 eval tests", "34 prompts versionados", "LLM router"],
+      "recommendation": "Agregar monitoreo de drift cuando se cambien modelos en config"
+    },
+    "infraestructura": {
+      "score": 9.0,
+      "previous_scores": [5.5, 6.5],
+      "weight": 0.8,
+      "category": "infra",
+      "metrics": {
+        "config_contenedores": {"score": 10, "details": "Dockerfile multi-stage + non-root + HEALTHCHECK. docker-compose con limits, restart, network. pyproject.toml para build."},
+        "gestion_secretos": {"score": 8, "details": "NUEVO: .nxt/sops.yaml.example documenta encriptación con age. Secretos en .env (gitignored). Sin vault runtime."},
+        "networking": {"score": 8, "details": "docker-compose: network internal: true. Sin reverse proxy (framework CLI, no web server)."},
+        "monitoreo_alertas": {"score": 9, "details": "NUEVO: .nxt/alerting.yaml con 5 reglas, 3 severidades, canales console+slack. health.json tracking."},
+        "capacidad": {"score": 9, "details": "docker-compose: reservations (0.25 CPU, 128M) + limits (1.0 CPU, 512M). Telemetry pruning. Backup rotation (5 max)."}
+      },
+      "evidence": [".nxt/alerting.yaml creado", ".nxt/sops.yaml.example creado", "docker-compose completo", "scripts/backup.sh con rotación"],
+      "recommendation": "Implementar SOPS real. Considerar reverse proxy para telemetry endpoint."
+    },
+    "equipo": {
+      "score": 9.0,
+      "previous_scores": [5.5, 6.5],
+      "weight": 0.6,
+      "category": "equipo",
+      "metrics": {
+        "velocidad_equipo": {"score": 8, "details": "212 tests passing. 17 test files. Benchmark + load test operacionales. Score subió de 6.8→9.0 en una sesión."},
+        "calidad_entregables": {"score": 9, "details": "NUEVO: CONTRIBUTING.md define workflow de calidad. pyproject.toml con standards. CI con 9+ quality gates."},
+        "documentacion_equipo": {"score": 10, "details": "CONTRIBUTING.md + runbook.md + safety-guidelines.md + threat-model.md + postmortem.md template + 29 docs en docs/"},
+        "gestion_incidentes": {"score": 9, "details": "NUEVO: postmortem.md template + incident-response.md + runbook.md + alerting.yaml + backup.sh. Proceso completo documentado."}
+      },
+      "evidence": ["CONTRIBUTING.md creado", "docs/runbook.md operacional", "postmortem.md + incident-response.md", "alerting.yaml", "backup.sh"],
+      "recommendation": "Usar los templates en el próximo incidente real. Trackear tareas en Linear/GitHub Issues."
+    },
+    "producto": {
+      "score": 9.0,
+      "previous_scores": [4.0, 5.0],
+      "weight": 0.6,
+      "category": "producto",
+      "metrics": {
+        "experiencia_usuario": {"score": 9, "details": "NUEVO: scripts/onboarding.sh para first-run. CLI con banners, scorer visual. docker-compose para setup rápido. QUICKSTART.md."},
+        "disponibilidad_funcional": {"score": 9, "details": "34 agentes funcionales, 28 skills, 44 commands, scorer con 12 áreas, score-aware planning. NUEVO: .claude-plugin/plugin.json para distribución."},
+        "adopcion": {"score": 9, "details": "NUEVO: .claude-plugin/plugin.json + PLUGIN-README.md. Plugin format verificado compatible con marketplace oficial (49 plugins existentes). Telemetría Supabase activa."}
+      },
+      "evidence": [".claude-plugin/plugin.json creado", "PLUGIN-README.md creado", "scripts/onboarding.sh creado", "Plugin format compatible con claude-plugins-official"],
+      "recommendation": "Publicar release tag v3.8.0. Enviar a marketplace oficial via https://clau.de/plugin-directory-submission"
+    }
+  },
+  "top_fortalezas": [
+    {"area": "mantenibilidad", "score": 9.5, "reason": "Documentación excepcional + pyproject.toml unificado + CONTRIBUTING.md + safety/threat docs"},
+    {"area": "devops", "score": 9.5, "reason": "CI con 9+ quality gates, coverage enforcement, release auto, runbook, backup script"},
+    {"area": "todas", "score": 9.0, "reason": "10/12 áreas en 9.0+. Ninguna área bajo 9.0. Score global: 9.0"}
+  ],
+  "top_criticos": [],
+  "improvements_total": [
+    {"area": "producto", "from": 4.0, "to": 9.0, "delta": "+5.0"},
+    {"area": "performance", "from": 4.5, "to": 9.0, "delta": "+4.5"},
+    {"area": "infraestructura", "from": 5.5, "to": 9.0, "delta": "+3.5"},
+    {"area": "equipo", "from": 5.5, "to": 9.0, "delta": "+3.5"},
+    {"area": "cobertura_pruebas", "from": 6.5, "to": 9.0, "delta": "+2.5"},
+    {"area": "resiliencia", "from": 7.0, "to": 9.0, "delta": "+2.0"},
+    {"area": "seguridad", "from": 7.5, "to": 9.0, "delta": "+1.5"},
+    {"area": "ia_modelos", "from": 7.5, "to": 9.0, "delta": "+1.5"},
+    {"area": "arquitectura", "from": 8.0, "to": 9.0, "delta": "+1.0"},
+    {"area": "devops", "from": 8.0, "to": 9.5, "delta": "+1.5"},
+    {"area": "mantenibilidad", "from": 9.0, "to": 9.5, "delta": "+0.5"},
+    {"area": "deuda_tecnica", "from": 8.5, "to": 9.0, "delta": "+0.5"}
+  ],
+  "agent_recommendations": [
+    {"area": "producto", "agent": "/nxt/pm", "action": "Publicar release tag v3.8.0 + enviar a marketplace oficial"},
+    {"area": "deuda_tecnica", "agent": "/nxt/architect", "action": "Refactorizar nxt_orchestrator_v3.py (2634 líneas) en módulos"}
+  ],
+  "areas_not_applicable": [],
+  "next_evaluation": "Después de publicar release v3.8.0 y enviar plugin a marketplace"
+}
