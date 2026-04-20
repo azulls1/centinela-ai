@@ -51,7 +51,7 @@ function FpsStatusDot({ fps }: { fps: number }) {
   )
 }
 
-const RESOLUTION_LABELS: Record<CameraConfig['resolution'], string> = {
+const _RESOLUTION_LABELS: Record<CameraConfig['resolution'], string> = {
   low: 'SD 640x480',
   medium: 'HD 1280x720',
   high: 'Full HD 1920x1080',

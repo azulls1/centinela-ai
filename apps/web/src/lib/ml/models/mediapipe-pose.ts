@@ -5,7 +5,7 @@
  */
 
 import { PoseLandmarker, FilesetResolver } from '@mediapipe/tasks-vision'
-import { logDebug, logError, logWarn } from '../../../utils/logger'
+import { logDebug, logError, logWarn as _logWarn } from '../../../utils/logger'
 
 let poseLandmarker: PoseLandmarker | null = null
 let isModelLoading = false

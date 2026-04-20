@@ -6,7 +6,7 @@ import type { AppConfig, CameraConfig, CameraDetectionSnapshot, DetectionState }
 const logWarn = (message: string, error?: unknown) => {
   console.warn(`[CameraFeed] ${message}`, error)
 }
-const logError = (message: string, error?: unknown) => {
+const _logError = (message: string, error?: unknown) => {
   console.error(`[CameraFeed] ${message}`, error)
 }
 

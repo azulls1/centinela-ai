@@ -1,5 +1,5 @@
 import { AppConfig, DetectionState, EmotionType, ActivityType, HealthStatus } from '../../types'
-import { loadCocoSsdModel, detectObjectsWithCocoSsd, isCocoSsdLoaded } from './models/coco-ssd'
+import { detectObjectsWithCocoSsd, isCocoSsdLoaded } from './models/coco-ssd'
 import { loadYolov8Model, detectObjectsWithYolov8, isYolov8Loaded } from './models/yolov8'
 import { loadMediaPipeFaceDetector, detectFacesWithMediaPipe, isMediaPipeFaceLoaded } from './models/mediapipe-face'
 import { loadEmotionModel, classifyEmotion, isEmotionModelLoaded } from './models/emotion-model'
@@ -21,7 +21,7 @@ const logWarn = (message: string, error?: unknown) => { console.warn(`[ML] ${mes
 // Estado global de modelos cargados
 let modelsLoaded = false // Flag para saber si los modelos están cargados
 let cocoSsdModel: any = null // Modelo COCO-SSD para detección de objetos
-let faceDetectorReady: boolean = false // face-api TinyFaceDetector
+let _faceDetectorReady: boolean = false // face-api TinyFaceDetector
 
 interface CameraProcessingState {
   lastProcessedFrameTime: number
@@ -107,7 +107,7 @@ export async function loadModels() {
     const status: string[] = []
 
     if (faceModel.status === 'fulfilled' && faceModel.value) {
-      faceDetectorReady = true
+      _faceDetectorReady = true
       status.push('FaceDetector: OK')
     } else {
       status.push('FaceDetector: FAILED')
@@ -717,7 +717,7 @@ function smoothBbox(current: { x: number; y: number; width: number; height: numb
 /**
  * Asociar nuevas detecciones con objetos rastreados existentes
  */
-function associateDetections(
+function _associateDetections(
   newDetections: Array<{ label: string; confidence: number; bbox: any }>,
   state: CameraProcessingState
 ): Map<string, TrackedObject> {
@@ -805,7 +805,7 @@ function associateDetections(
 /**
  * Obtener objetos que deben mostrarse (con suficiente persistencia)
  */
-function getVisibleTrackedObjects(state: CameraProcessingState): Array<{ label: string; confidence: number; bbox: any }> {
+function _getVisibleTrackedObjects(state: CameraProcessingState): Array<{ label: string; confidence: number; bbox: any }> {
   const trackedObjects = state.trackedObjects
   const now = Date.now()
   const visible: Array<{ label: string; confidence: number; bbox: any }> = []
