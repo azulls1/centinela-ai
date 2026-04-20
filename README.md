@@ -198,7 +198,8 @@ El proyecto se despliega en Docker Swarm con Traefik como reverse proxy:
 docker stack deploy -c infra/stack.yml centinela
 ```
 
-Dominio: `apicentinela.iagentek.com.mx`
+- **Frontend**: https://iris.iagentek.com.mx
+- **API**: https://iris-api.iagentek.com.mx
 
 ## Licencia
 
